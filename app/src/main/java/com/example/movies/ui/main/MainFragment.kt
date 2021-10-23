@@ -1,32 +1,61 @@
 package com.example.movies.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.movies.R
+import com.example.movies.ResourceProvider
+import com.example.movies.ViewBindingDelegate
+import com.example.movies.data.MovieRepositoryImpl
+import com.example.movies.databinding.MainFragmentBinding
+import com.example.movies.domain.MovieRepository
+import com.example.movies.viewBinding
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(R.layout.main_activity) {
 
     companion object {
         fun newInstance() = MainFragment()
     }
-
-    private lateinit var viewModel: MainViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+    private val viewBinding :MainFragmentBinding by viewBinding(MainFragmentBinding::bind)
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModelFactory(ResourceProvider(requireActivity().application),MovieRepositoryImpl())
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if(savedInstanceState == null){
+            viewModel.fetchMovie()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViewModelLiveData()
+    }
+
+    private fun initViewModelLiveData() {
+        viewModel.errorLiveData.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(),it,Toast.LENGTH_SHORT).show()
+        }
+        viewModel.loadingLiveData.observe(viewLifecycleOwner){}
+        viewModel.movieLiveData.observe(viewLifecycleOwner){}
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
+}
+
+class MainViewModelFactory(
+    private val resourceProvider: ResourceProvider,
+    private val movieRepository: MovieRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return MainViewModel(resourceProvider, movieRepository) as T
     }
 
 }
