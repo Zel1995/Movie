@@ -1,8 +1,10 @@
 package com.example.movies.domain
 
 import com.example.movies.data.RepositoryResult
+import com.example.movies.domain.model.Movie
+import com.example.movies.domain.model.MovieCategory
+import java.util.concurrent.Executor
 
 interface MovieRepository {
-    fun getMovie(callback:(result:RepositoryResult<Movie>)->Unit)
-    fun shutDown()
+    fun getMovies(executor: Executor, callback: (result: RepositoryResult<List<MovieCategory>>) -> Unit)
 }

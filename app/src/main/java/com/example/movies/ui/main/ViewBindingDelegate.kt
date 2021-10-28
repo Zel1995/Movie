@@ -1,4 +1,4 @@
-package com.example.movies
+package com.example.movies.ui.main
 
 import android.os.Handler
 import android.os.Looper
@@ -11,7 +11,8 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-fun <V:ViewBinding>Fragment.viewBinding(bind: (view: View) -> V) = ViewBindingDelegate(this,bind)
+fun <V : ViewBinding> Fragment.viewBinding(bind: (view: View) -> V) =
+    ViewBindingDelegate(this, bind)
 
 
 class ViewBindingDelegate<V : ViewBinding>(
@@ -21,18 +22,20 @@ class ViewBindingDelegate<V : ViewBinding>(
 
     private var viewBinding: V? = null
     private val handler = Handler(Looper.getMainLooper())
+
     init {
-        fragment.viewLifecycleOwnerLiveData.observe(fragment){
-            it.lifecycle.addObserver(object :LifecycleObserver{
+        fragment.viewLifecycleOwnerLiveData.observe(fragment) {
+            it.lifecycle.addObserver(object : LifecycleObserver {
                 @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-                fun destroyed(){
-                    handler.post{
+                fun destroyed() {
+                    handler.post {
                         viewBinding = null
                     }
                 }
             })
         }
     }
+
     override fun getValue(thisRef: Fragment, property: KProperty<*>): V {
         return viewBinding ?: run {
             val view = thisRef.requireView()
