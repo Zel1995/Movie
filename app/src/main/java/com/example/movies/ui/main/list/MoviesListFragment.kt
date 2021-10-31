@@ -8,23 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.movies.R
 import com.example.movies.databinding.FragmentMovieListBinding
-import com.example.movies.di.App
 import com.example.movies.domain.MovieRepository
 import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.router.MainRouter
 import com.example.movies.ui.main.viewBinding
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
     private val adapter = MovieCategoriesAdapter {
         mainRouter.openMovieDetailsFragment(it)
-        }
-
+    }
 
     @Inject
     lateinit var factory: MainViewModelFactory
+
     @Inject
     lateinit var mainRouter: MainRouter
     private val viewBinding: FragmentMovieListBinding by viewBinding(FragmentMovieListBinding::bind)
@@ -39,7 +40,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as? MainActivity)?.mainSubcomponent?.inject(this)
+        (requireActivity() as? MainActivity)?.mainSubcomponent?.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,20 +55,23 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
     }
 
     private fun initViewModelLiveData() {
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.error.collect {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
         }
-        viewModel.loadingLiveData.observe(viewLifecycleOwner) {
-            viewBinding.progress.visibility = if (it) View.VISIBLE else View.GONE
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.loading.collect {
+                viewBinding.progress.visibility = if (it) View.VISIBLE else View.GONE
+            }
         }
-        viewModel.movieLiveData.observe(viewLifecycleOwner) {
-            adapter.setData(it)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.movie.collect {
+                adapter.setData(it)
+            }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 }
 
 class MainViewModelFactory @Inject constructor(

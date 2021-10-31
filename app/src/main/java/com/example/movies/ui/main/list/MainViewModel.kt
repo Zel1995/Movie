@@ -3,44 +3,41 @@ package com.example.movies.ui.main.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.movies.data.Success
+import androidx.lifecycle.viewModelScope
+import com.example.movies.data.repository.Success
 import com.example.movies.domain.MovieRepository
 import com.example.movies.domain.model.MovieCategory
-import java.util.concurrent.Executors
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val repository: MovieRepository
 ) : ViewModel() {
-    private val executor = Executors.newSingleThreadExecutor()
 
-    private val _loadingLiveData = MutableLiveData(false)
-    private val _errorLiveData = MutableLiveData<String?>()
-    private val _movieLiveData = MutableLiveData<List<MovieCategory>>()
+    private val _loading = MutableStateFlow(false)
+    private val _error = MutableStateFlow<String?>(null)
+    private val _movie = MutableStateFlow<List<MovieCategory>>(listOf())
 
-    val loadingLiveData: LiveData<Boolean> = _loadingLiveData
-    val errorLiveData: LiveData<String?> = _errorLiveData
-    val movieLiveData: LiveData<List<MovieCategory>> = _movieLiveData
+    val loading: StateFlow<Boolean> = _loading
+    val error: StateFlow<String?> = _error
+    val movie: StateFlow<List<MovieCategory>> = _movie
 
     fun fetchMovie() {
-        _loadingLiveData.value = true
-        repository.getMovies(executor) {
-            when (it) {
+        _loading.value = true
+        viewModelScope.launch {
+            when (val result = repository.getMovies()) {
                 is Success -> {
-                    val result = it.value
-                    _movieLiveData.value = result
-                    _errorLiveData.value = null
+                    val movies = result.value
+                    _movie.value = movies
+                    _error.value = null
                 }
                 is Error -> {
-                    _errorLiveData.value = it.printStackTrace().toString()
+                    _error.value = result.printStackTrace().toString()
 
                 }
             }
+            _loading.value = false
         }
-        _loadingLiveData.value = false
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        executor.shutdown()
     }
 }
