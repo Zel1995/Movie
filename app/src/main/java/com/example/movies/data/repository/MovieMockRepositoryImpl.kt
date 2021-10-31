@@ -2,22 +2,26 @@ package com.example.movies.data
 
 import android.os.Handler
 import android.os.Looper
-import com.example.movies.domain.model.Movie
+import com.example.movies.data.repository.Error
+import com.example.movies.data.repository.RepositoryResult
+import com.example.movies.data.repository.Success
 import com.example.movies.domain.MovieRepository
+import com.example.movies.domain.model.Movie
+import com.example.movies.domain.model.MovieCategory
 import java.util.concurrent.Executor
 
-class MovieRepositoryImpl : MovieRepository {
+class MovieMockRepositoryImpl : MovieRepository {
     private val handler = Handler(Looper.getMainLooper())
 
     override fun getMovies(
         executor: Executor,
-        callback: (result: RepositoryResult<List<Movie>>) -> Unit
+        callback: (result: RepositoryResult<List<MovieCategory>>) -> Unit
     ) {
         executor.execute {
             Thread.sleep(1000)
             if (true) {
                 handler.post {
-                    callback(Success(listOf(Movie("0", "name,"))))
+                    callback(Success(listOf(MovieCategory("0", listOf(Movie("1", "2"))))))
                 }
             } else {
                 handler.post {
@@ -28,6 +32,3 @@ class MovieRepositoryImpl : MovieRepository {
     }
 }
 
-sealed class RepositoryResult<T>
-data class Success<T>(val value: T) : RepositoryResult<T>()
-data class Error<T>(val error: Throwable) : RepositoryResult<T>()

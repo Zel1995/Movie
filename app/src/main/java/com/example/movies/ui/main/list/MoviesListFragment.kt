@@ -9,22 +9,24 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.movies.R
-import com.example.movies.ResourceProvider
 import com.example.movies.databinding.FragmentMovieListBinding
 import com.example.movies.di.App
 import com.example.movies.domain.MovieRepository
-import com.example.movies.ui.main.router.RouterHolder
+import com.example.movies.ui.main.MainActivity
+import com.example.movies.ui.main.router.MainRouter
 import com.example.movies.ui.main.viewBinding
 import javax.inject.Inject
 
 class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
     private val adapter = MovieCategoriesAdapter {
-            (activity as RouterHolder).router.openMovieDetailsFragment(it)
+        mainRouter.openMovieDetailsFragment(it)
         }
 
 
     @Inject
     lateinit var factory: MainViewModelFactory
+    @Inject
+    lateinit var mainRouter: MainRouter
     private val viewBinding: FragmentMovieListBinding by viewBinding(FragmentMovieListBinding::bind)
     private val viewModel: MainViewModel by viewModels { factory }
 
@@ -36,8 +38,8 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
     }
 
     override fun onAttach(context: Context) {
-        (requireActivity().application as App).appComponent.inject(this)
         super.onAttach(context)
+        (requireActivity().application as? MainActivity)?.mainSubcomponent?.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,11 +71,10 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
 }
 
 class MainViewModelFactory @Inject constructor(
-    private val resourceProvider: ResourceProvider,
     private val movieRepository: MovieRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(resourceProvider, movieRepository) as T
+        return MainViewModel(movieRepository) as T
     }
 
 }

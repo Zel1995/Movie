@@ -1,5 +1,6 @@
 package com.example.movies.ui.main.details
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.movies.R
 import com.example.movies.databinding.FragmentMovieBinding
 import com.example.movies.domain.model.Movie
+import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.list.MainViewModel
 import com.example.movies.ui.main.viewBinding
 
@@ -30,6 +32,9 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
     }
     val viewBinding: FragmentMovieBinding by viewBinding(FragmentMovieBinding::bind)
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
 }
 
 class MovieViewModelFactory() : ViewModelProvider.Factory {
