@@ -3,6 +3,7 @@ package com.example.movies.di.modules
 import com.example.movies.BuildConfig
 import com.example.movies.data.network.MovieApi
 import com.example.movies.data.repository.MovieRepositoryImpl
+import com.example.movies.data.storage.MoviesDao
 import com.example.movies.domain.MovieRepository
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,8 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Singleton
     @Provides
-    fun provideRepository(movieApi: MovieApi): MovieRepository = MovieRepositoryImpl(movieApi)
+    fun providesRepository(movieApi: MovieApi, moviesDao: MoviesDao): MovieRepository =
+        MovieRepositoryImpl(movieApi, moviesDao)
 
     @Provides
     fun providesMovieApi(okHttpClient: OkHttpClient): MovieApi {

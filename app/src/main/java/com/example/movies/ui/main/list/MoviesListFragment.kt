@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.movies.R
 import com.example.movies.databinding.FragmentMovieListBinding
-import com.example.movies.domain.MovieRepository
+import com.example.movies.domain.usecase.FetchMoviesUseCase
 import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.router.MainRouter
 import com.example.movies.ui.main.viewBinding
@@ -29,7 +29,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
     @Inject
     lateinit var mainRouter: MainRouter
     private val viewBinding: FragmentMovieListBinding by viewBinding(FragmentMovieListBinding::bind)
-    private val viewModel: MainViewModel by viewModels { factory }
+    private val viewModel: MoviesViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,15 +70,21 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
                 adapter.setData(it)
             }
         }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.iconMode.collect{
+                //set adult icon
+            }
+        }
     }
 
 }
 
 class MainViewModelFactory @Inject constructor(
-    private val movieRepository: MovieRepository
+    private val fetchMoviesUseCase: FetchMoviesUseCase,
+    private val adultsStorage: AdultsStorage
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(movieRepository) as T
+        return MoviesViewModel(fetchMoviesUseCase,adultsStorage) as T
     }
 
 }
