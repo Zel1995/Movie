@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class AdultsStorage @Inject constructor(private val context: Context) {
     companion object {
-        private const val ADULTS_KEY = "ADULTS_KET"
+        private const val ADULTS_KEY = "ADULTS_KEY"
         private const val PREF_KEY = "PREF_KEY"
     }
 

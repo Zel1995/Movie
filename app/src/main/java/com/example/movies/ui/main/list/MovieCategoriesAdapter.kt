@@ -45,7 +45,7 @@ class MovieCategoriesAdapter(
                     LinearLayoutManager(categoryList.context, LinearLayoutManager.HORIZONTAL, false)
                 layoutManager =lm
 
-                    adapter = MoviesAdapter(item.movies) {
+                    adapter = MoviesAdapter(item.result) {
                     itemClicked.invoke(it)
                 }
 

@@ -2,4 +2,7 @@
     <string name="app_name">Movies</string>
     <string name="categories">Categories</string>
     <string name="movie">Movie</string>
+    <string name="movies">Movies</string>
+    <string name="favorite">favorite</string>
+    <string name="history">history</string>
 </resources>

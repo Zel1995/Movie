@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movies.R
 import com.example.movies.domain.model.Movie
 
-class MoviesAdapter(private val movies:List<Movie>,onMovieClicked:(movie:Movie)->Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoviesAdapter(private val movies:List<Movie>, onMovieClicked:(movie:Movie)->Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val root = LayoutInflater.from(parent.context).inflate(R.layout.item_movie,parent,false)
         return MovieViewHolder(root)

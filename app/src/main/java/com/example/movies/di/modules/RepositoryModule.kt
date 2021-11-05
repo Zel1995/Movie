@@ -1,6 +1,8 @@
 package com.example.movies.di.modules
 
 import com.example.movies.BuildConfig
+import com.example.movies.data.mapper.MovieApiResponseMapper
+import com.example.movies.data.mapper.MovieEntityMapper
 import com.example.movies.data.network.MovieApi
 import com.example.movies.data.repository.MovieRepositoryImpl
 import com.example.movies.data.storage.MoviesDao
@@ -18,7 +20,7 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun providesRepository(movieApi: MovieApi, moviesDao: MoviesDao): MovieRepository =
-        MovieRepositoryImpl(movieApi, moviesDao)
+        MovieRepositoryImpl(movieApi, moviesDao, MovieApiResponseMapper(), MovieEntityMapper())
 
     @Provides
     fun providesMovieApi(okHttpClient: OkHttpClient): MovieApi {

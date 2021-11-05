@@ -1,12 +1,14 @@
-package com.example.movies.data.model
+package com.example.movies.data.model.list
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieResponse (
+data class MovieResponse(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
+    @SerializedName("genre_ids")
+    val genreIds: String,
     @SerializedName("id")
     val id: Int,
     @SerializedName("original_language")
@@ -29,4 +31,4 @@ data class MovieResponse (
     val voteAverage: Float,
     @SerializedName("vote_count")
     val voteCount: Int
-        )
+)

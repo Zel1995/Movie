@@ -7,6 +7,7 @@ import com.example.movies.di.App
 import com.example.movies.di.MainSubcomponent
 import com.example.movies.di.modules.MainActivityModule
 import com.example.movies.ui.main.router.MainRouter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,14 @@ class MainActivity : AppCompatActivity() {
         mainSubcomponent?.inject(this)
         if (savedInstanceState == null) {
             router.openMoviesListFragment()
+        }
+        findViewById<BottomNavigationView>(R.id.bottom_nav_view).setOnItemSelectedListener {item->
+            when(item.itemId){
+                R.id.item_movies ->{router.openMoviesListFragment()}
+                R.id.item_favorite ->{}
+                R.id.item_history ->{}
+            }
+            true
         }
     }
 
