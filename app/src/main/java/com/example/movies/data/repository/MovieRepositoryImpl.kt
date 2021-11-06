@@ -20,21 +20,30 @@ class MovieRepositoryImpl(
     MovieRepository {
     companion object {
         const val POPULAR_KEY = "popular"
+        const val NOW_PLAYING_KEY = "now_playing"
+        const val TOP_RATED_KEY = "top_rated"
+        const val UPCOMING_KEY = "upcoming"
         const val RU_LANGUAGE_KEY = "ru"
     }
 
-    override fun getMovies(): Flow<RepositoryResult<List<MovieCategory>>> = flow {
-        val movies = moviesDao.getMoviesByCategory(POPULAR_KEY)
-        movies?.let { cachedValue ->
-            val movieCategory =
-                MovieCategory(POPULAR_KEY, movieEntityMapper.toMovieList(cachedValue))
-            emit(Success(listOf(movieCategory)))
-        }
+    override suspend fun getMovies(): Flow<RepositoryResult<List<MovieCategory>>> = flow {
+        val categoriesList = listOf(
+            POPULAR_KEY,
+            NOW_PLAYING_KEY,
+            TOP_RATED_KEY,
+            UPCOMING_KEY
+        )
+/*        getCachedMoviesByCategories(categoriesList)?.let {
+            emit(Success(it))
+        }*/
         try {
-            val response = movieApi.getMovies(POPULAR_KEY, BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY)
-            val result = response.result.map{movieApiResponseMapper.toMovie(it)}
-            moviesDao.addMovie(movieEntityMapper.toMovieEntityList(result, POPULAR_KEY))
-            emit(Success(listOf(MovieCategory(POPULAR_KEY, result))))
+
+            val result = getMoviesByCategories(categoriesList)
+            //moviesDao.clearMovies()
+          /*  result.forEach {
+                moviesDao.addMovies(movieEntityMapper.toMovieEntityList(it.result, POPULAR_KEY))
+            }*/
+            emit(Success(result))
         } catch (exc: Exception) {
             emit(Error(exc))
         }
@@ -49,6 +58,23 @@ class MovieRepositoryImpl(
             emit(Error(exc))
         }
     }
+
+    private suspend fun getCachedMoviesByCategories(categoriesList: List<String>): List<MovieCategory>? {
+        return categoriesList.map {
+            MovieCategory(
+                it,
+                movieEntityMapper.toMovieList(moviesDao.getMoviesByCategory(it)) ?: listOf()
+            )
+        }
+    }
+
+    private suspend fun getMoviesByCategories(categoriesList: List<String>): List<MovieCategory> {
+        return categoriesList.map {
+            val response = movieApi.getMovies(it, BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY)
+            movieApiResponseMapper.toMovieCategoryList(it, response)
+        }
+    }
+
 }
 
 sealed class RepositoryResult<T>

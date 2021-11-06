@@ -14,7 +14,7 @@ class MainRouter(private val fragmentManager: FragmentManager) {
     }
 
     fun openMovieDetailsFragment(movie: Movie) {
-        fragmentManager.beginTransaction().replace(R.id.container, MovieFragment.newInstance(movie))
+        fragmentManager.beginTransaction().addToBackStack("details").replace(R.id.container, MovieFragment.newInstance(movie))
             .commit()
     }
 }

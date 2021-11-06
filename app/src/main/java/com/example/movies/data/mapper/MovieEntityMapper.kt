@@ -9,7 +9,6 @@ class MovieEntityMapper {
         return Movie(
             movieEntity.adult,
             movieEntity.backdropPath,
-            movieEntity.genreIds,
             movieEntity.id,
             movieEntity.originalLanguage,
             movieEntity.originalTitle,
@@ -24,15 +23,14 @@ class MovieEntityMapper {
         )
     }
 
-    fun toMovieList(movieEntityList: List<MovieEntity>): List<Movie> {
-        return movieEntityList.map { toMovie(it) }
+    fun toMovieList(movieEntityList: List<MovieEntity>?): List<Movie>? {
+        return movieEntityList?.map { toMovie(it) }
     }
 
     private fun toMovieEntity(movie: Movie, category: String): MovieEntity {
         return MovieEntity(
             movie.adult,
             movie.backdropPath,
-            movie.genreIds,
             movie.id,
             movie.originalLanguage,
             movie.originalTitle,

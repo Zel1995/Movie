@@ -11,12 +11,13 @@ class FetchMoviesUseCase @Inject constructor(
     private val repository: MovieRepository,
     private val adultsStorage: AdultsStorage
 ) {
-    fun run(): Flow<RepositoryResult<List<MovieCategory>>>{
-        return if(adultsStorage.isAdults){
+    suspend fun run(): Flow<RepositoryResult<List<MovieCategory>>>{
+        return repository.getMovies()
+        /*if(adultsStorage.isAdults){
             repository.getMovies()
         }else{
             repository.getMovies()
-        }
+        }*/
 
     }
 }

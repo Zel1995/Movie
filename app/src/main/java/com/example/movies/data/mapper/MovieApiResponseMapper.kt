@@ -2,7 +2,9 @@ package com.example.movies.data.mapper
 
 import com.example.movies.data.model.details.MovieDetailsResponse
 import com.example.movies.data.model.list.MovieResponse
+import com.example.movies.data.model.list.MoviesCategoryResponse
 import com.example.movies.domain.model.Movie
+import com.example.movies.domain.model.MovieCategory
 import com.example.movies.domain.model.MovieDetails
 
 class MovieApiResponseMapper {
@@ -32,15 +34,15 @@ class MovieApiResponseMapper {
             movieDetailsResponse.voteCount
         )
     }
-    fun toMovieDetailsList(movieDetailsResponse: List<MovieDetailsResponse>):List<MovieDetails>{
+
+    fun toMovieDetailsList(movieDetailsResponse: List<MovieDetailsResponse>): List<MovieDetails> {
         return movieDetailsResponse.map { toMovieDetails(it) }
     }
 
-    fun toMovie(movieResponse: MovieResponse): Movie {
+    private fun toMovie(movieResponse: MovieResponse): Movie {
         return Movie(
             movieResponse.adult,
             movieResponse.backdropPath,
-            movieResponse.genreIds,
             movieResponse.id,
             movieResponse.originalLanguage,
             movieResponse.originalTitle,
@@ -54,9 +56,21 @@ class MovieApiResponseMapper {
             movieResponse.voteCount
         )
     }
-    fun toMovieList(movieResponseList:List<MovieResponse>):List<Movie>{
+
+    private fun toMovieList(movieResponseList: List<MovieResponse>): List<Movie> {
         return movieResponseList.map { toMovie(it) }
     }
 
+    fun toMovieCategoryList(
+        category: String,
+        moviesCategoryResponse: MoviesCategoryResponse
+    ): MovieCategory {
+        return MovieCategory(
+            category,
+            toMovieList(moviesCategoryResponse.result),
+            moviesCategoryResponse.page,
+            moviesCategoryResponse.totalPages
+        )
+    }
 
 }

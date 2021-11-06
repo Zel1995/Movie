@@ -47,7 +47,16 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
         super.onViewCreated(view, savedInstanceState)
         initViewModelLiveData()
         initViews()
+        viewModel.fetchMovie()
         viewBinding.rvMovieCategories.adapter = adapter
+        initSwipeRefresh()
+    }
+
+    private fun initSwipeRefresh() {
+        viewBinding.swipeRefresh.setOnRefreshListener {
+            viewModel.fetchMovie()
+            viewBinding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun initViews() {
@@ -63,6 +72,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.loading.collect {
                 viewBinding.progress.visibility = if (it) View.VISIBLE else View.GONE
+                viewBinding.rvMovieCategories.visibility = if (it) View.GONE else View.VISIBLE
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -71,7 +81,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.iconMode.collect{
+            viewModel.iconMode.collect {
                 //set adult icon
             }
         }
@@ -83,8 +93,7 @@ class MainViewModelFactory @Inject constructor(
     private val fetchMoviesUseCase: FetchMoviesUseCase,
     private val adultsStorage: AdultsStorage
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MoviesViewModel(fetchMoviesUseCase,adultsStorage) as T
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return MoviesViewModel(fetchMoviesUseCase, adultsStorage) as T
     }
-
 }

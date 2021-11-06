@@ -10,8 +10,6 @@ data class MovieEntity(
     val adult: Boolean,
     @ColumnInfo(name = "backdrop_path")
     val backdropPath: String,
-    @ColumnInfo(name = "genre_ids")
-    val genreIds: String,
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,

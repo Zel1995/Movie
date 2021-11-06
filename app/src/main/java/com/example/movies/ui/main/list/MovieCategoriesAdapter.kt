@@ -39,16 +39,15 @@ class MovieCategoriesAdapter(
         val item = data[position]
         (holder as? MovieCategoriesViewHolder)?.apply {
             categoryName.text = item.category
-            with(categoryList) {
+            with(categoryListRv) {
 
                 val lm =
-                    LinearLayoutManager(categoryList.context, LinearLayoutManager.HORIZONTAL, false)
+                    LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
                 layoutManager =lm
 
                     adapter = MoviesAdapter(item.result) {
                     itemClicked.invoke(it)
                 }
-
                 setRecycledViewPool(pool)
             }
         }
@@ -61,10 +60,7 @@ class MovieCategoriesAdapter(
     inner class MovieCategoriesViewHolder(itemView: View, itemClicked: ItemClicked? = null) :
         RecyclerView.ViewHolder(itemView) {
         val categoryName: TextView = itemView.findViewById(R.id.tv_category)
-        val categoryList: RecyclerView = itemView.findViewById(R.id.rv_category)
+        val categoryListRv: RecyclerView = itemView.findViewById(R.id.rv_category)
 
-        init {
-            itemView.setOnClickListener { }
-        }
     }
 }

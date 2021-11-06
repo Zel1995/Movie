@@ -7,8 +7,6 @@ data class MovieResponse(
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
-    @SerializedName("genre_ids")
-    val genreIds: String,
     @SerializedName("id")
     val id: Int,
     @SerializedName("original_language")
