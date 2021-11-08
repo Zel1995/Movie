@@ -38,7 +38,7 @@ class MovieCategoriesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = data[position]
         (holder as? MovieCategoriesViewHolder)?.apply {
-            categoryName.text = item.category
+            categoryName.text = item.name
             with(categoryListRv) {
 
                 val lm =

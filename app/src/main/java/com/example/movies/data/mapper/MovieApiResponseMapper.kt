@@ -39,7 +39,7 @@ class MovieApiResponseMapper {
         return movieDetailsResponse.map { toMovieDetails(it) }
     }
 
-    private fun toMovie(movieResponse: MovieResponse): Movie {
+    private fun toMovie(movieResponse: MovieResponse, categoryName: String): Movie {
         return Movie(
             movieResponse.adult,
             movieResponse.backdropPath,
@@ -53,21 +53,25 @@ class MovieApiResponseMapper {
             movieResponse.title,
             movieResponse.video,
             movieResponse.voteAverage,
-            movieResponse.voteCount
+            movieResponse.voteCount,
+            categoryName
         )
     }
 
-    private fun toMovieList(movieResponseList: List<MovieResponse>): List<Movie> {
-        return movieResponseList.map { toMovie(it) }
+    private fun toMovieList(
+        movieResponseList: List<MovieResponse>,
+        categoryName: String
+    ): List<Movie> {
+        return movieResponseList.map { toMovie(it, categoryName) }
     }
 
-    fun toMovieCategoryList(
-        category: String,
+    fun toMovieCategory(
+        categoryName: String,
         moviesCategoryResponse: MoviesCategoryResponse
     ): MovieCategory {
         return MovieCategory(
-            category,
-            toMovieList(moviesCategoryResponse.result),
+            categoryName,
+            toMovieList(moviesCategoryResponse.result, categoryName),
             moviesCategoryResponse.page,
             moviesCategoryResponse.totalPages
         )

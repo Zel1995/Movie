@@ -24,18 +24,19 @@ class MovieMockRepositoryImpl : MovieRepository {
                         "0", listOf(
                             Movie(
                                 true,
-                                "a",
+                                "path",
                                 1,
-                                "a",
-                                "a",
-                                "a",
+                                "ru",
+                                "Name",
+                                "some text",
                                 3f,
-                                "a",
-                                "a", "a",
+                                "path",
+                                "release",
+                                "title",
                                 true,
                                 3f,
                                 10,
-                                )
+                                "category")
                         )
                     )
                 )

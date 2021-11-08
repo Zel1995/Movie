@@ -33,16 +33,18 @@ class MovieRepositoryImpl(
             TOP_RATED_KEY,
             UPCOMING_KEY
         )
-/*        getCachedMoviesByCategories(categoriesList)?.let {
+        val cacheResult = moviesDao.getMovieCategoryWithMovies()?.map {
+            movieEntityMapper.toMovieCategory(it)
+        }
+        cacheResult?.let {
             emit(Success(it))
-        }*/
+        }
         try {
-
-            val result = getMoviesByCategories(categoriesList)
-            //moviesDao.clearMovies()
-          /*  result.forEach {
-                moviesDao.addMovies(movieEntityMapper.toMovieEntityList(it.result, POPULAR_KEY))
-            }*/
+            val result = getMoviesByCategoriesFromApi(categoriesList)
+            result.forEach {
+                moviesDao.addCategory(movieEntityMapper.toMovieCategoryEntity(it))
+                moviesDao.addMovies(movieEntityMapper.toMovieEntityList(it.result))
+            }
             emit(Success(result))
         } catch (exc: Exception) {
             emit(Error(exc))
@@ -59,19 +61,10 @@ class MovieRepositoryImpl(
         }
     }
 
-    private suspend fun getCachedMoviesByCategories(categoriesList: List<String>): List<MovieCategory>? {
-        return categoriesList.map {
-            MovieCategory(
-                it,
-                movieEntityMapper.toMovieList(moviesDao.getMoviesByCategory(it)) ?: listOf()
-            )
-        }
-    }
-
-    private suspend fun getMoviesByCategories(categoriesList: List<String>): List<MovieCategory> {
+    private suspend fun getMoviesByCategoriesFromApi(categoriesList: List<String>): List<MovieCategory> {
         return categoriesList.map {
             val response = movieApi.getMovies(it, BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY)
-            movieApiResponseMapper.toMovieCategoryList(it, response)
+            movieApiResponseMapper.toMovieCategory(it, response)
         }
     }
 

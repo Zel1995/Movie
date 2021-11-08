@@ -1,7 +1,10 @@
 package com.example.movies.data.mapper
 
-import com.example.movies.data.storage.MovieEntity
+import com.example.movies.data.storage.entities.MovieCategoryEntity
+import com.example.movies.data.storage.entities.MovieCategoryWithMovies
+import com.example.movies.data.storage.entities.MovieEntity
 import com.example.movies.domain.model.Movie
+import com.example.movies.domain.model.MovieCategory
 
 class MovieEntityMapper {
 
@@ -19,15 +22,30 @@ class MovieEntityMapper {
             movieEntity.title,
             movieEntity.video,
             movieEntity.voteAverage,
-            movieEntity.voteCount
+            movieEntity.voteCount,
+            movieEntity.categoryName
         )
     }
 
-    fun toMovieList(movieEntityList: List<MovieEntity>?): List<Movie>? {
-        return movieEntityList?.map { toMovie(it) }
+    fun toMovieList(movieEntityList: List<MovieEntity>): List<Movie> {
+        return movieEntityList.map { toMovie(it) }
     }
 
-    private fun toMovieEntity(movie: Movie, category: String): MovieEntity {
+    fun toMovieCategory(movieCategoryWithMovies: MovieCategoryWithMovies): MovieCategory {
+        return MovieCategory(
+            movieCategoryWithMovies.movieCategoryEntity.name,
+            toMovieList(movieCategoryWithMovies.result),
+            movieCategoryWithMovies.movieCategoryEntity.page,
+            movieCategoryWithMovies.movieCategoryEntity.totalPages
+        )
+    }
+
+    fun toMovieCategoryEntity(movieCategory: MovieCategory): MovieCategoryEntity {
+        return MovieCategoryEntity(movieCategory.name, movieCategory.page, movieCategory.totalPages)
+
+    }
+
+    private fun toMovieEntity(movie: Movie): MovieEntity {
         return MovieEntity(
             movie.adult,
             movie.backdropPath,
@@ -42,11 +60,24 @@ class MovieEntityMapper {
             movie.video,
             movie.voteAverage,
             movie.voteCount,
-            category
+            movie.categoryName
         )
     }
 
-    fun toMovieEntityList(movieList: List<Movie>, category: String): List<MovieEntity> {
-        return movieList.map { toMovieEntity(it, category) }
+    fun toMovieEntityList(movieList: List<Movie>): List<MovieEntity> {
+        return movieList.map { toMovieEntity(it) }
     }
+
+    fun toMovieCategoryWithMovies(movieCategory: MovieCategory): MovieCategoryWithMovies {
+        return MovieCategoryWithMovies(
+            MovieCategoryEntity(
+                movieCategory.name,
+                movieCategory.page,
+                movieCategory.totalPages
+            ),
+            movieCategory.result.map { toMovieEntity(it) }
+        )
+    }
+
+
 }

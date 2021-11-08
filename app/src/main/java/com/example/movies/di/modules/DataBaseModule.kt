@@ -15,6 +15,7 @@ class DataBaseModule {
     @Provides
     fun providesMovieDataBase(app: Application): MovieDataBase {
         return Room.databaseBuilder(app, MovieDataBase::class.java, "MovieDataBase")
+            .fallbackToDestructiveMigration()
             .build()
     }
     @Provides

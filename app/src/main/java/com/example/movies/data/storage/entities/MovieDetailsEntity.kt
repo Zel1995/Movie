@@ -1,4 +1,4 @@
-package com.example.movies.data.storage
+package com.example.movies.data.storage.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -44,5 +44,7 @@ data class MovieDetailsEntity(
     @ColumnInfo(name = "vote_average")
     val voteAverage: Float,
     @ColumnInfo(name = "vote_count")
-    val voteCount: Int
+    val voteCount: Int,
+    @ColumnInfo(name = "category")
+    val category: String
 )
