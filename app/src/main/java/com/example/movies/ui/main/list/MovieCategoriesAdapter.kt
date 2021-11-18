@@ -16,7 +16,6 @@ class MovieCategoriesAdapter(
     private val itemClicked: ItemClicked
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val pool = RecyclerView.RecycledViewPool()
     private val data = mutableListOf<MovieCategory>()
 
     fun setData(dataToSet: List<MovieCategory>) {
@@ -43,12 +42,11 @@ class MovieCategoriesAdapter(
 
                 val lm =
                     LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-                layoutManager =lm
+                layoutManager = lm
 
-                    adapter = MoviesAdapter(item.result) {
+                adapter = MoviesAdapter(item.result) {
                     itemClicked.invoke(it)
                 }
-                setRecycledViewPool(pool)
             }
         }
     }

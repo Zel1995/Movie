@@ -16,6 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:menu="@menu/movies_list_menu"
             app:title="@string/categories" />
     </com.google.android.material.appbar.AppBarLayout>
 

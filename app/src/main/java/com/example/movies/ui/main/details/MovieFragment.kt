@@ -12,8 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.databinding.FragmentMovieBinding
+import com.example.movies.domain.FavoriteMovieRepository
 import com.example.movies.domain.MovieRepository
 import com.example.movies.domain.model.Movie
+import com.example.movies.domain.usecase.AddOrDeleteFavoriteMovieUseCase
 import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.list.MoviesAdapter.Companion.BASE_IMAGE_URL
 import com.example.movies.ui.main.viewBinding
@@ -45,7 +47,21 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         val movie = arguments?.let { it.getParcelable(MOVIE_ARG) as Movie? }
-        movie?.id?.let { viewModel.fetchMovie(it) }
+        movie?.id?.let {
+            viewModel.fetchMovie(it)
+        }
+        setHasOptionsMenu(true)
+        viewBinding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.item_like -> {
+                    movie?.let { movie -> viewModel.addOrDeleteFavoriteMovie(movie) }
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -65,8 +81,13 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
                 Glide.with(viewBinding.moviePoserImageView)
                     .load(BASE_IMAGE_URL + it?.backdropPath)
                     .into(viewBinding.moviePoserImageView)
-
-                viewBinding.moviePoserImageView
+                viewBinding.moviePoserImageView.setOnClickListener {
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.favoriteIcon.collect {
+                viewBinding.toolbar.menu.findItem(R.id.item_like).setIcon(it)
             }
         }
     }
@@ -74,14 +95,21 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity() as? MainActivity)?.mainSubcomponent?.inject(this)
-
     }
 }
 
-class MovieViewModelFactory @Inject constructor(private val movieRepository: MovieRepository) :
+class MovieViewModelFactory @Inject constructor(
+    private val movieRepository: MovieRepository,
+    private val favoriteMovieRepository: FavoriteMovieRepository,
+    private val addOrDeleteFavoriteMovieUseCase: AddOrDeleteFavoriteMovieUseCase
+) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MovieViewModel(movieRepository) as T
+        return MovieViewModel(
+            movieRepository,
+            favoriteMovieRepository,
+            addOrDeleteFavoriteMovieUseCase
+        ) as T
     }
 }

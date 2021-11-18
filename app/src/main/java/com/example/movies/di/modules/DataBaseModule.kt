@@ -3,6 +3,7 @@ package com.example.movies.di.modules
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.example.movies.data.storage.FavoriteMoviesDao
 import com.example.movies.data.storage.MovieDataBase
 import com.example.movies.data.storage.MoviesDao
 import dagger.Module
@@ -20,5 +21,9 @@ class DataBaseModule {
     }
     @Provides
     fun providesMoviesDao(dataBase: MovieDataBase):MoviesDao = dataBase.moviesDao()
+
+
+    @Provides
+    fun providesFavoriteMoviesDao(dataBase: MovieDataBase):FavoriteMoviesDao = dataBase.favoriteMoviesDao()
 
 }

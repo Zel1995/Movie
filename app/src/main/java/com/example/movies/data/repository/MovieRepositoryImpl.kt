@@ -1,5 +1,6 @@
 package com.example.movies.data.repository
 
+import android.util.Log
 import com.example.movies.BuildConfig
 import com.example.movies.data.mapper.MovieApiResponseMapper
 import com.example.movies.data.mapper.MovieEntityMapper
@@ -26,7 +27,7 @@ class MovieRepositoryImpl(
         const val RU_LANGUAGE_KEY = "ru"
     }
 
-    override suspend fun getMovies(): Flow<RepositoryResult<List<MovieCategory>>> = flow {
+    override fun getMovies(): Flow<RepositoryResult<List<MovieCategory>>> = flow {
         val categoriesList = listOf(
             POPULAR_KEY,
             NOW_PLAYING_KEY,
@@ -41,6 +42,8 @@ class MovieRepositoryImpl(
         }
         try {
             val result = getMoviesByCategoriesFromApi(categoriesList)
+            moviesDao.clearMovieCategories()
+            moviesDao.clearMoviesEntity()
             result.forEach {
                 moviesDao.addCategory(movieEntityMapper.toMovieCategoryEntity(it))
                 moviesDao.addMovies(movieEntityMapper.toMovieEntityList(it.result))

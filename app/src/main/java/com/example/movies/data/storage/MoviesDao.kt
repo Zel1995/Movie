@@ -20,7 +20,7 @@ interface MoviesDao {
     @Query("DELETE FROM MovieCategoryEntity")
     suspend fun clearMovieCategories()
 
-    @Query("DELETE FROM MovieCategoryEntity")
+    @Query("DELETE FROM MovieEntity")
     suspend fun clearMoviesEntity()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

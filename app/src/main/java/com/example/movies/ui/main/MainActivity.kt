@@ -1,5 +1,6 @@
 package com.example.movies.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movies.R
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_nav_view).setOnItemSelectedListener {item->
             when(item.itemId){
                 R.id.item_movies ->{router.openMoviesListFragment()}
-                R.id.item_favorite ->{}
+                R.id.item_favorite ->{router.openFavoriteFragment()}
                 R.id.item_history ->{}
             }
             true

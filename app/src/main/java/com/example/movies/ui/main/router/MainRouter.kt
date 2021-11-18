@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.movies.R
 import com.example.movies.domain.model.Movie
 import com.example.movies.ui.main.details.MovieFragment
+import com.example.movies.ui.main.favorite.FavoriteFragment
 import com.example.movies.ui.main.list.MoviesListFragment
 
 class MainRouter(private val fragmentManager: FragmentManager) {
@@ -14,7 +15,14 @@ class MainRouter(private val fragmentManager: FragmentManager) {
     }
 
     fun openMovieDetailsFragment(movie: Movie) {
-        fragmentManager.beginTransaction().addToBackStack("details").replace(R.id.container, MovieFragment.newInstance(movie))
+        fragmentManager.beginTransaction().addToBackStack("details")
+            .replace(R.id.container, MovieFragment.newInstance(movie))
             .commit()
     }
+    fun openFavoriteFragment() {
+        fragmentManager.beginTransaction().addToBackStack("favorite")
+            .replace(R.id.container, FavoriteFragment.newInstance())
+            .commit()
+    }
+
 }

@@ -16,7 +16,7 @@ class MovieMockRepositoryImpl : MovieRepository {
     private val handler = Handler(Looper.getMainLooper())
 
 
-    override suspend fun getMovies(): Flow<RepositoryResult<List<MovieCategory>>> =
+    override fun getMovies(): Flow<RepositoryResult<List<MovieCategory>>> =
         flow {
             Success(
                 listOf(
