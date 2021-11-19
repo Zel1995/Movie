@@ -3,9 +3,10 @@ package com.example.movies.ui.main.router
 import androidx.fragment.app.FragmentManager
 import com.example.movies.R
 import com.example.movies.domain.model.Movie
+import com.example.movies.ui.main.actors.ActorsFragment
 import com.example.movies.ui.main.details.MovieFragment
 import com.example.movies.ui.main.favorite.FavoriteFragment
-import com.example.movies.ui.main.list.MoviesListFragment
+import com.example.movies.ui.main.categories.MoviesListFragment
 
 class MainRouter(private val fragmentManager: FragmentManager) {
     fun openMoviesListFragment() {
@@ -25,4 +26,9 @@ class MainRouter(private val fragmentManager: FragmentManager) {
             .commit()
     }
 
+    fun openActorsFragment() {
+        fragmentManager.beginTransaction().addToBackStack("actors")
+            .replace(R.id.container, ActorsFragment())
+            .commit()
+    }
 }

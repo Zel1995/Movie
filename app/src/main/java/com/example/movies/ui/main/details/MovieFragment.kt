@@ -17,7 +17,7 @@ import com.example.movies.domain.MovieRepository
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.usecase.AddOrDeleteFavoriteMovieUseCase
 import com.example.movies.ui.main.MainActivity
-import com.example.movies.ui.main.list.MoviesAdapter.Companion.BASE_IMAGE_URL
+import com.example.movies.ui.main.categories.MoviesAdapter.Companion.BASE_IMAGE_URL
 import com.example.movies.ui.main.viewBinding
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject

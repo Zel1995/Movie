@@ -12,8 +12,8 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_fav"/>
     <item
-        android:id="@+id/item_history"
-        android:title="@string/history"
+        android:id="@+id/item_actors"
+        android:title="@string/actors"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_baseline_history_24"/>
+        android:icon="@drawable/ic_actors"/>
 </menu>

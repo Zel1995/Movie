@@ -1,6 +1,5 @@
 package com.example.movies.data.repository
 
-import android.util.Log
 import com.example.movies.BuildConfig
 import com.example.movies.data.mapper.MovieApiResponseMapper
 import com.example.movies.data.mapper.MovieEntityMapper

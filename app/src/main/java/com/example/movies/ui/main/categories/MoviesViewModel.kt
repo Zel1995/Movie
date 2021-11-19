@@ -1,4 +1,4 @@
-package com.example.movies.ui.main.list
+package com.example.movies.ui.main.categories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

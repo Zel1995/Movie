@@ -1,14 +1,18 @@
 package com.example.movies.di.modules
 
 import com.example.movies.BuildConfig
+import com.example.movies.data.mapper.ActorsResponseMapper
 import com.example.movies.data.mapper.FavoriteMovieEntityMapper
 import com.example.movies.data.mapper.MovieApiResponseMapper
 import com.example.movies.data.mapper.MovieEntityMapper
+import com.example.movies.data.network.ActorsApi
 import com.example.movies.data.network.MovieApi
+import com.example.movies.data.repository.ActorsRepositoryImpl
 import com.example.movies.data.repository.FavoriteMovieRepositoryImpl
 import com.example.movies.data.repository.MovieRepositoryImpl
 import com.example.movies.data.storage.FavoriteMoviesDao
 import com.example.movies.data.storage.MoviesDao
+import com.example.movies.domain.ActorsRepository
 import com.example.movies.domain.FavoriteMovieRepository
 import com.example.movies.domain.MovieRepository
 import dagger.Module
@@ -31,21 +35,9 @@ class RepositoryModule {
     fun providesFavoriteMovieRepository(favoriteMoviesDao: FavoriteMoviesDao):FavoriteMovieRepository{
         return FavoriteMovieRepositoryImpl(favoriteMoviesDao, FavoriteMovieEntityMapper())
     }
-
     @Provides
-    fun providesMovieApi(okHttpClient: OkHttpClient): MovieApi {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
-        return retrofit.create(MovieApi::class.java)
-    }
+    @Singleton
+    fun providesActorsRepository(actorsApi: ActorsApi):ActorsRepository =
+        ActorsRepositoryImpl(actorsApi, ActorsResponseMapper())
 
-    @Provides
-    fun providesLoginInterceptor(): OkHttpClient = OkHttpClient.Builder().apply {
-        addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
-    }.build()
 }

@@ -1,6 +1,5 @@
 package com.example.movies.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movies.R
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             when(item.itemId){
                 R.id.item_movies ->{router.openMoviesListFragment()}
                 R.id.item_favorite ->{router.openFavoriteFragment()}
-                R.id.item_history ->{}
+                R.id.item_actors ->{router.openActorsFragment()}
             }
             true
         }

@@ -3,7 +3,7 @@ package com.example.movies.domain.usecase
 import com.example.movies.data.repository.RepositoryResult
 import com.example.movies.domain.MovieRepository
 import com.example.movies.domain.model.MovieCategory
-import com.example.movies.ui.main.list.AdultsStorage
+import com.example.movies.ui.main.categories.AdultsStorage
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

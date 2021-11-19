@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.domain.model.Movie
-import com.example.movies.ui.main.list.MoviesAdapter.Companion.BASE_IMAGE_URL
+import com.example.movies.ui.main.categories.MoviesAdapter.Companion.BASE_IMAGE_URL
 
 class FavoriteMoviesAdapter(private val onItemClick:(movie:Movie)->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
