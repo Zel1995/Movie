@@ -1,5 +1,6 @@
 package com.example.movies.data.network
 
+import android.net.Uri
 import com.example.movies.data.model.details.MovieDetailsResponse
 import com.example.movies.data.model.list.MoviesCategoryResponse
 import retrofit2.http.GET
@@ -20,5 +21,12 @@ interface MovieApi {
         @Query("api_key") key: String,
         @Query("language") language: String
     ): MovieDetailsResponse
+
+    @GET("3/search/movie")
+    suspend fun searchMovies(
+        @Query("api_key") key: String,
+        @Query("language") language: String,
+        @Query("query") query: Uri,
+    ): MoviesCategoryResponse
 
 }

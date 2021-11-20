@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies.data.repository.Error
 import com.example.movies.data.repository.Success
-import com.example.movies.domain.FavoriteMovieRepository
-import com.example.movies.domain.model.Movie
+import com.example.movies.domain.repository.FavoriteMovieRepository
+import com.example.movies.domain.model.movie.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

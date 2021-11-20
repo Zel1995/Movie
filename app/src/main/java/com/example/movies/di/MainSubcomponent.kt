@@ -7,6 +7,7 @@ import com.example.movies.ui.main.actors.ActorsFragment
 import com.example.movies.ui.main.details.MovieFragment
 import com.example.movies.ui.main.favorite.FavoriteFragment
 import com.example.movies.ui.main.categories.MoviesListFragment
+import com.example.movies.ui.main.search.SearchMoviesFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [RouterModule::class,MainActivityModule::class])
@@ -21,4 +22,5 @@ interface MainSubcomponent {
     fun inject(movieFragment: MovieFragment)
     fun inject(favoriteFragment: FavoriteFragment)
     fun inject(actorsFragment: ActorsFragment)
+    fun inject(searchMovieFragment: SearchMoviesFragment)
 }

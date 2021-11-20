@@ -10,4 +10,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_your_favorite_movie">Добавьте любимый фильм...</string>
     <string name="actors">actors</string>
+    <string name="search">search</string>
+    <string name="search_hint">поиск</string>
 </resources>

@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movies.R
-import com.example.movies.domain.model.Movie
-import com.example.movies.domain.model.MovieCategory
+import com.example.movies.domain.model.movie.Movie
+import com.example.movies.domain.model.movie.MovieCategory
 
 typealias ItemClicked = (movie: Movie) -> Unit
 
@@ -44,7 +44,7 @@ class MovieCategoriesAdapter(
                     LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
                 layoutManager = lm
 
-                adapter = MoviesAdapter(item.result) {
+                adapter = MoviesAdapter(item.results) {
                     itemClicked.invoke(it)
                 }
             }

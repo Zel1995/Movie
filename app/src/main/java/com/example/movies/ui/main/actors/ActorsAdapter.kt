@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
-import com.example.movies.domain.model.Actor
+import com.example.movies.domain.model.actor.Actor
 import com.example.movies.ui.main.categories.MoviesAdapter
 
-class ActorsAdapter (private val itemClicked:(actor:Actor)->Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ActorsAdapter (private val itemClicked:(actor: Actor)->Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data = mutableListOf<Actor>()
 

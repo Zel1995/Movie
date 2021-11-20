@@ -6,7 +6,7 @@ data class MovieResponse(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("original_language")
@@ -18,7 +18,7 @@ data class MovieResponse(
     @SerializedName("popularity")
     val popularity: Float,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("title")

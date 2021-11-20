@@ -3,8 +3,8 @@ package com.example.movies.data.repository
 import com.example.movies.BuildConfig
 import com.example.movies.data.mapper.ActorsResponseMapper
 import com.example.movies.data.network.ActorsApi
-import com.example.movies.domain.ActorsRepository
-import com.example.movies.domain.model.Actors
+import com.example.movies.domain.repository.ActorsRepository
+import com.example.movies.domain.model.actor.Actors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

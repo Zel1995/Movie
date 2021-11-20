@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
-import com.example.movies.domain.model.Movie
+import com.example.movies.domain.model.movie.Movie
 import com.example.movies.ui.main.categories.MoviesAdapter.Companion.BASE_IMAGE_URL
 
-class FavoriteMoviesAdapter(private val onItemClick:(movie:Movie)->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FavoriteMoviesAdapter(private val onItemClick:(movie: Movie)->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data = mutableListOf<Movie>()
 
@@ -46,7 +46,7 @@ class FavoriteMoviesAdapter(private val onItemClick:(movie:Movie)->Unit) : Recyc
                 onItemClick.invoke(data[adapterPosition])
             }
         }
-        fun bind(movie:Movie){
+        fun bind(movie: Movie){
             Glide.with(itemView)
                 .load(BASE_IMAGE_URL + movie.posterPath)
                 .into(image)

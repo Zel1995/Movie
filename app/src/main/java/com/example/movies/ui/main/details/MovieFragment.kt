@@ -12,9 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.databinding.FragmentMovieBinding
-import com.example.movies.domain.FavoriteMovieRepository
-import com.example.movies.domain.MovieRepository
-import com.example.movies.domain.model.Movie
+import com.example.movies.domain.repository.FavoriteMovieRepository
+import com.example.movies.domain.repository.MovieRepository
+import com.example.movies.domain.model.movie.Movie
 import com.example.movies.domain.usecase.AddOrDeleteFavoriteMovieUseCase
 import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.categories.MoviesAdapter.Companion.BASE_IMAGE_URL

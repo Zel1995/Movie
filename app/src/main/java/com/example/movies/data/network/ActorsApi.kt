@@ -12,5 +12,3 @@ interface ActorsApi {
         @Query("page") page: String
     ): ActorsResponse
 }
-//https://api.themoviedb.org/3/person/popular?api_key=6267054eeb5e792857b08b1a08490bcc&language=ru&page=1
-//https://api.themoviedb.org/3/person/1136406?api_key=6267054eeb5e792857b08b1a08490bcc&language=ru

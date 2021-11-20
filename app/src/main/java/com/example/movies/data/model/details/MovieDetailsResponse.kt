@@ -6,7 +6,7 @@ data class MovieDetailsResponse(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("budget")
     val budget: Long,
     @SerializedName("genres")
@@ -14,17 +14,17 @@ data class MovieDetailsResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("imdb_id")
-    val imdbId: String,
+    val imdbId: String?,
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("original_title")
     val originalTitle: String,
     @SerializedName("overview")
-    val overview: String,
+    val overview: String?,
     @SerializedName("popularity")
     val popularity: String,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompaniesResponse>,
     @SerializedName("release_date")
@@ -32,11 +32,11 @@ data class MovieDetailsResponse(
     @SerializedName("revenue")
     val revenue: Long,
     @SerializedName("runtime")
-    val runTime: Int,
+    val runTime: Int?,
     @SerializedName("status")
     val status: String,
     @SerializedName("tagline")
-    val tagline: String,
+    val tagline: String?,
     @SerializedName("title")
     val title: String,
     @SerializedName("video")

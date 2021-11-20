@@ -3,8 +3,9 @@ package com.example.movies.ui.main.categories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies.R
+import com.example.movies.data.repository.Error
 import com.example.movies.data.repository.Success
-import com.example.movies.domain.model.MovieCategory
+import com.example.movies.domain.model.movie.MovieCategory
 import com.example.movies.domain.usecase.FetchMoviesUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -44,7 +45,7 @@ class MoviesViewModel(
                             _movie.value = movies
                         }
                         is Error -> {
-                            _error.emit(result.printStackTrace().toString())
+                            _error.emit(result.error.printStackTrace().toString())
                         }
                     }
                     _loading.value = false

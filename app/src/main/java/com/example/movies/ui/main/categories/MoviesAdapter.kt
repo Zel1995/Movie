@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
-import com.example.movies.domain.model.Movie
+import com.example.movies.domain.model.movie.Movie
 
 class MoviesAdapter(
     private val movies: List<Movie>,

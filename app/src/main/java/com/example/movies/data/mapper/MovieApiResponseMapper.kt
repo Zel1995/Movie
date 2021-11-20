@@ -3,9 +3,9 @@ package com.example.movies.data.mapper
 import com.example.movies.data.model.details.MovieDetailsResponse
 import com.example.movies.data.model.list.MovieResponse
 import com.example.movies.data.model.list.MoviesCategoryResponse
-import com.example.movies.domain.model.Movie
-import com.example.movies.domain.model.MovieCategory
-import com.example.movies.domain.model.MovieDetails
+import com.example.movies.domain.model.movie.Movie
+import com.example.movies.domain.model.movie.MovieCategory
+import com.example.movies.domain.model.movie.MovieDetails
 
 class MovieApiResponseMapper {
 
@@ -60,18 +60,18 @@ class MovieApiResponseMapper {
 
     private fun toMovieList(
         movieResponseList: List<MovieResponse>,
-        categoryName: String
+        categoryName: String = ""
     ): List<Movie> {
         return movieResponseList.map { toMovie(it, categoryName) }
     }
 
     fun toMovieCategory(
-        categoryName: String,
-        moviesCategoryResponse: MoviesCategoryResponse
+        moviesCategoryResponse: MoviesCategoryResponse,
+        categoryName: String = ""
     ): MovieCategory {
         return MovieCategory(
             categoryName,
-            toMovieList(moviesCategoryResponse.result, categoryName),
+            toMovieList(moviesCategoryResponse.results, categoryName),
             moviesCategoryResponse.page,
             moviesCategoryResponse.totalPages
         )

@@ -4,10 +4,10 @@ import android.os.Handler
 import android.os.Looper
 import com.example.movies.data.repository.RepositoryResult
 import com.example.movies.data.repository.Success
-import com.example.movies.domain.MovieRepository
-import com.example.movies.domain.model.Movie
-import com.example.movies.domain.model.MovieCategory
-import com.example.movies.domain.model.MovieDetails
+import com.example.movies.domain.model.movie.Movie
+import com.example.movies.domain.model.movie.MovieCategory
+import com.example.movies.domain.model.movie.MovieDetails
+import com.example.movies.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -36,7 +36,8 @@ class MovieMockRepositoryImpl : MovieRepository {
                                 true,
                                 3f,
                                 10,
-                                "category")
+                                "category"
+                            )
                         )
                     )
                 )
@@ -44,6 +45,10 @@ class MovieMockRepositoryImpl : MovieRepository {
         }
 
     override fun getMovie(id: Int): Flow<RepositoryResult<MovieDetails>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun searchMovies(query: String): Flow<RepositoryResult<MovieCategory>> {
         TODO("Not yet implemented")
     }
 

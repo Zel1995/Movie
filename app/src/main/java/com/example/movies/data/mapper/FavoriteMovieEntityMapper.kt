@@ -1,7 +1,7 @@
 package com.example.movies.data.mapper
 
 import com.example.movies.data.storage.entities.FavoriteMovieEntity
-import com.example.movies.domain.model.Movie
+import com.example.movies.domain.model.movie.Movie
 
 class FavoriteMovieEntityMapper {
     fun toMovie(favoriteMovieEntity: FavoriteMovieEntity): Movie {
@@ -26,19 +26,19 @@ class FavoriteMovieEntityMapper {
         return favoriteMovieEntity?.let {
             Movie(
                 it.adult,
-                favoriteMovieEntity.backdropPath,
-                favoriteMovieEntity.id,
-                favoriteMovieEntity.originalLanguage,
-                favoriteMovieEntity.originalTitle,
-                favoriteMovieEntity.overview,
-                favoriteMovieEntity.popularity,
-                favoriteMovieEntity.posterPath,
-                favoriteMovieEntity.releaseDate,
-                favoriteMovieEntity.title,
-                favoriteMovieEntity.video,
-                favoriteMovieEntity.voteAverage,
-                favoriteMovieEntity.voteCount,
-                favoriteMovieEntity.categoryName
+                it.backdropPath,
+                it.id,
+                it.originalLanguage,
+                it.originalTitle,
+                it.overview,
+                it.popularity,
+                it.posterPath,
+                it.releaseDate,
+                it.title,
+                it.video,
+                it.voteAverage,
+                it.voteCount,
+                it.categoryName
             )
         }
     }
@@ -47,7 +47,7 @@ class FavoriteMovieEntityMapper {
         return favoriteMovieEntityList.map { toMovie(it) }
     }
 
-    fun toFavoriteMovie(movie:Movie):FavoriteMovieEntity{
+    fun toFavoriteMovie(movie: Movie):FavoriteMovieEntity{
         return FavoriteMovieEntity(
             movie.adult,
             movie.backdropPath,

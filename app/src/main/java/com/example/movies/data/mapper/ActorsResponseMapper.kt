@@ -2,8 +2,8 @@ package com.example.movies.data.mapper
 
 import com.example.movies.data.model.actors.ActorResponse
 import com.example.movies.data.model.actors.ActorsResponse
-import com.example.movies.domain.model.Actor
-import com.example.movies.domain.model.Actors
+import com.example.movies.domain.model.actor.Actor
+import com.example.movies.domain.model.actor.Actors
 
 class ActorsResponseMapper {
     fun toActor(actorResponse: ActorResponse): Actor {

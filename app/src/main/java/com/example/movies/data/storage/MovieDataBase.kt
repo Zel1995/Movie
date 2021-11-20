@@ -9,7 +9,7 @@ import com.example.movies.data.storage.entities.MovieEntity
 
 @Database(
     entities = [MovieEntity::class, MovieDetailsEntity::class, MovieCategoryEntity::class,FavoriteMovieEntity::class],
-    version = 3
+    version = 4
 )
 abstract class MovieDataBase : RoomDatabase() {
     abstract fun moviesDao(): MoviesDao

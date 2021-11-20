@@ -9,7 +9,7 @@ data class FavoriteMovieEntity(
     @ColumnInfo(name = "adult")
     val adult: Boolean,
     @ColumnInfo(name = "backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,
@@ -22,7 +22,7 @@ data class FavoriteMovieEntity(
     @ColumnInfo(name = "popularity")
     val popularity: Float,
     @ColumnInfo(name = "poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @ColumnInfo(name = "release_date")
     val releaseDate: String,
     @ColumnInfo(name = "title")

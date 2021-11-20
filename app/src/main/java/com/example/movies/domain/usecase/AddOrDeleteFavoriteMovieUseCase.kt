@@ -1,8 +1,8 @@
 package com.example.movies.domain.usecase
 
 import com.example.movies.R
-import com.example.movies.domain.FavoriteMovieRepository
-import com.example.movies.domain.model.Movie
+import com.example.movies.domain.repository.FavoriteMovieRepository
+import com.example.movies.domain.model.movie.Movie
 import javax.inject.Inject
 
 class AddOrDeleteFavoriteMovieUseCase @Inject constructor(

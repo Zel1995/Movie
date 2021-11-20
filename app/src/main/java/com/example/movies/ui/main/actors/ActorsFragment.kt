@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.movies.R
 import com.example.movies.databinding.FragmentActorsBinding
-import com.example.movies.domain.ActorsRepository
+import com.example.movies.domain.repository.ActorsRepository
 import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.viewBinding
 import kotlinx.coroutines.flow.collect
