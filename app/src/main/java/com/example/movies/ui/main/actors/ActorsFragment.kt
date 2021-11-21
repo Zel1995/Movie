@@ -12,14 +12,18 @@ import com.example.movies.R
 import com.example.movies.databinding.FragmentActorsBinding
 import com.example.movies.domain.repository.ActorsRepository
 import com.example.movies.ui.main.MainActivity
+import com.example.movies.ui.main.router.MainRouter
 import com.example.movies.ui.main.viewBinding
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class ActorsFragment : Fragment(R.layout.fragment_actors) {
     private val adapter = ActorsAdapter {
-
+        router.openActorFragment(it)
     }
+
+    @Inject
+    lateinit var router: MainRouter
 
     @Inject
     lateinit var factory: ActorsViewModelFactory
@@ -40,7 +44,7 @@ class ActorsFragment : Fragment(R.layout.fragment_actors) {
 
     private fun initViewModel() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.actor.collect {
+            viewModel.actors.collect {
                 it?.let { adapter.setData(it.results) }
             }
         }

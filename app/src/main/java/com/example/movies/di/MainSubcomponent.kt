@@ -3,6 +3,7 @@ package com.example.movies.di
 import com.example.movies.di.modules.MainActivityModule
 import com.example.movies.di.modules.RouterModule
 import com.example.movies.ui.main.MainActivity
+import com.example.movies.ui.main.actor.ActorFragment
 import com.example.movies.ui.main.actors.ActorsFragment
 import com.example.movies.ui.main.details.MovieFragment
 import com.example.movies.ui.main.favorite.FavoriteFragment
@@ -23,4 +24,5 @@ interface MainSubcomponent {
     fun inject(favoriteFragment: FavoriteFragment)
     fun inject(actorsFragment: ActorsFragment)
     fun inject(searchMovieFragment: SearchMoviesFragment)
+    fun inject(actorFragment: ActorFragment)
 }

@@ -30,3 +30,4 @@ data class MovieResponse(
     @SerializedName("vote_count")
     val voteCount: Int
 )
+

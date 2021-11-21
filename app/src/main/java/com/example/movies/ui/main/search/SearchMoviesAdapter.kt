@@ -52,6 +52,8 @@ class SearchMoviesAdapter(private val itemClicked: (Movie) -> Unit) :
         fun bind(movie: Movie) {
             Glide.with(itemView)
                 .load(BASE_IMAGE_URL + movie.posterPath)
+                .placeholder(R.drawable.movie_background3)
+                .error(R.drawable.movie_background3)
                 .into(image)
             title.text = movie.title
             date.text = movie.releaseDate

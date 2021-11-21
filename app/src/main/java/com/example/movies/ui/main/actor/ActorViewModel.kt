@@ -1,37 +1,36 @@
-package com.example.movies.ui.main.actors
+package com.example.movies.ui.main.actor
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies.data.repository.Error
 import com.example.movies.data.repository.Success
+import com.example.movies.domain.model.actor.ActorDetails
 import com.example.movies.domain.repository.ActorsRepository
-import com.example.movies.domain.model.actor.Actors
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class ActorsViewModel(private val repository: ActorsRepository) : ViewModel() {
-    private val _actors = MutableStateFlow<Actors?>(null)
+class ActorViewModel(private val repository: ActorsRepository) : ViewModel() {
+    private val _actor = MutableStateFlow<ActorDetails?>(null)
     private val _loading = MutableStateFlow(false)
     private val _error = MutableSharedFlow<String>()
 
-    val actors = _actors.asStateFlow()
+    val actor = _actor.asStateFlow()
     val loading = _loading.asStateFlow()
     val error = _error.asSharedFlow()
 
-    fun fetchActors() {
+    fun fetchActor(id: String) {
         viewModelScope.launch {
-            repository.getActors()
+            repository.getActor(id)
                 .onStart { _loading.value = true }
                 .collect {
                     when (it) {
                         is Success -> {
-                            _actors.value = it.value
+                            _actor.value = it.value
                         }
                         is Error -> {
-                            _error.emit(it.error.message.toString())
+                            _error.emit(it.error.stackTraceToString())
                         }
                     }
-                    _loading.value = false
                 }
         }
     }

@@ -16,6 +16,6 @@ data class ActorResponse(
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("profile_path")
-    val profilePath: String,
+    val profilePath: String?,
 )
 

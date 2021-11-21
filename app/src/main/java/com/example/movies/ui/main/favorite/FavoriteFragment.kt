@@ -10,8 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.movies.R
 import com.example.movies.databinding.FragmentFavoriteBinding
+import com.example.movies.domain.model.movie.Movie
 import com.example.movies.domain.repository.FavoriteMovieRepository
 import com.example.movies.ui.main.MainActivity
+import com.example.movies.ui.main.router.MainRouter
 import com.example.movies.ui.main.viewBinding
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -20,10 +22,14 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     companion object {
         fun newInstance() = FavoriteFragment()
     }
-    private val adapter = FavoriteMoviesAdapter(){
+    private val adapter = FavoriteMoviesAdapter(::onItemClick){
         viewModel.deleteMovie(it)
     }
-
+    private fun onItemClick(movie:Movie){
+        router.openMovieDetailsFragment(movie)
+    }
+    @Inject
+    lateinit var router: MainRouter
     @Inject
     lateinit var factory: FavoriteMoviesViewModelFactory
     private val viewModel: FavoriteMoviesViewModel by viewModels {

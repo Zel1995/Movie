@@ -31,6 +31,7 @@ class SearchMoviesFragment : Fragment(R.layout.fragment_movie_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchSearchResult("a")
         initViewModel()
         initSearchEdit()
         viewBinding.searchAdapter.adapter = adapter

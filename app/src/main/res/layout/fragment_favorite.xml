@@ -26,5 +26,5 @@
         android:layout_height="300dp"
         android:layout_gravity="center"
         android:alpha="0.5"
-        android:src="@drawable/movie_background"/>
+        android:src="@drawable/bg_movie"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

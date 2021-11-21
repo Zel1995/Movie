@@ -40,6 +40,8 @@ class MoviesAdapter(
         fun bind(movie: Movie) {
             Glide.with(itemView)
                 .load(BASE_IMAGE_URL + movie.posterPath)
+                .placeholder(R.drawable.movie_background3)
+                .error(R.drawable.movie_background3)
                 .into(image)
             movieTitle.text = movie.title
         }

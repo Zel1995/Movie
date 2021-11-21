@@ -50,7 +50,7 @@ class MovieRepositoryImpl(
             }
             emit(Success(result))
         } catch (exc: Exception) {
-            emit(Error(exc))
+            emit(Error<List<MovieCategory>>(exc))
         }
     }
 
@@ -60,7 +60,7 @@ class MovieRepositoryImpl(
             val movie = movieApiResponseMapper.toMovieDetails(response)
             emit(Success(movie))
         } catch (exc: Exception) {
-            emit(Error(exc))
+            emit(Error<MovieDetails>(exc))
         }
     }
 
@@ -70,7 +70,7 @@ class MovieRepositoryImpl(
                 movieApi.searchMovies(BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY, Uri.parse(query))
             emit(Success(movieApiResponseMapper.toMovieCategory(result)))
         } catch (exc: Exception) {
-            emit(Error(exc))
+            emit(Error<MovieCategory>(exc))
         }
     }
 
@@ -85,4 +85,4 @@ class MovieRepositoryImpl(
 
 sealed class RepositoryResult<T>
 data class Success<T>(val value: T) : RepositoryResult<T>()
-data class Error<T>(val error: Throwable,val value:T? = null) : RepositoryResult<T>()
+data class Error<T>(val error: Throwable) : RepositoryResult<T>()

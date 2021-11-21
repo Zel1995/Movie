@@ -48,6 +48,8 @@ class ActorsAdapter (private val itemClicked:(actor: Actor)->Unit): RecyclerView
         fun bind(actor: Actor) {
             Glide.with(itemView)
                 .load(MoviesAdapter.BASE_IMAGE_URL + actor.profilePath)
+                .placeholder(R.drawable.avatar_background)
+                .error(R.drawable.avatar_background)
                 .into(image)
             name.text = actor.name
         }

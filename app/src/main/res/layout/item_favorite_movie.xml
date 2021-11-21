@@ -5,13 +5,21 @@
     android:layout_height="100dp"
     android:layout_margin="8dp">
 
+    <View
+        android:id="@+id/click_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/liked_icon_image_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="60dp"
         android:layout_height="100dp"
-        android:elevation="10dp"
         android:padding="10dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -49,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:clickable="true"
-        android:src="@drawable/ic_liked"
+        android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
