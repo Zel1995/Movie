@@ -4,10 +4,12 @@ import android.net.Uri
 import com.example.movies.BuildConfig
 import com.example.movies.data.mapper.MovieApiResponseMapper
 import com.example.movies.data.mapper.MovieEntityMapper
+import com.example.movies.data.mapper.VideosResponseMapper
 import com.example.movies.data.network.MovieApi
 import com.example.movies.data.storage.MoviesDao
 import com.example.movies.domain.model.movie.MovieCategory
 import com.example.movies.domain.model.movie.MovieDetails
+import com.example.movies.domain.model.video.Videos
 import com.example.movies.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,6 +19,7 @@ class MovieRepositoryImpl(
     private val moviesDao: MoviesDao,
     private val movieApiResponseMapper: MovieApiResponseMapper,
     private val movieEntityMapper: MovieEntityMapper,
+    private val videosResponseMapper: VideosResponseMapper
 ) :
     MovieRepository {
     companion object {
@@ -61,6 +64,15 @@ class MovieRepositoryImpl(
             emit(Success(movie))
         } catch (exc: Exception) {
             emit(Error<MovieDetails>(exc))
+        }
+    }
+
+    override fun getVideo(id: Int): Flow<RepositoryResult<Videos>> = flow{
+        try {
+            val response = movieApi.getVideo(id,BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY)
+            emit(Success(videosResponseMapper.toVideos(response)))
+        }catch (exc:Exception){
+            emit(Error<Videos>(exc))
         }
     }
 

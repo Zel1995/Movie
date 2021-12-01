@@ -1,13 +1,16 @@
 package com.example.movies.data.mapper
 
 import com.example.movies.data.model.details.MovieDetailsResponse
+import com.example.movies.data.model.details.ProductionCompaniesResponse
 import com.example.movies.data.model.list.MovieResponse
 import com.example.movies.data.model.list.MoviesCategoryResponse
 import com.example.movies.domain.model.movie.Movie
 import com.example.movies.domain.model.movie.MovieCategory
 import com.example.movies.domain.model.movie.MovieDetails
+import com.example.movies.domain.model.movie.ProductionCompanies
+import javax.inject.Inject
 
-class MovieApiResponseMapper {
+class MovieApiResponseMapper @Inject constructor() {
 
     fun toMovieDetails(movieDetailsResponse: MovieDetailsResponse): MovieDetails {
         return MovieDetails(
@@ -22,7 +25,7 @@ class MovieApiResponseMapper {
             movieDetailsResponse.overview,
             movieDetailsResponse.popularity,
             movieDetailsResponse.posterPath,
-            movieDetailsResponse.productionCompanies.map { it.name },
+            movieDetailsResponse.productionCompanies.map { toProductionCompanies(it) },
             movieDetailsResponse.releaseDate,
             movieDetailsResponse.revenue,
             movieDetailsResponse.runTime,
@@ -35,9 +38,18 @@ class MovieApiResponseMapper {
         )
     }
 
-    fun toMovieDetailsList(movieDetailsResponse: List<MovieDetailsResponse>): List<MovieDetails> {
-        return movieDetailsResponse.map { toMovieDetails(it) }
+    fun toProductionCompanies(productionCompaniesResponse: ProductionCompaniesResponse): ProductionCompanies {
+        return productionCompaniesResponse.let {
+            ProductionCompanies(
+                it.id,
+                it.logoPath,
+                it.name,
+                it.originCountry,
+            )
+        }
+
     }
+
 
     private fun toMovie(movieResponse: MovieResponse, categoryName: String): Movie {
         return Movie(

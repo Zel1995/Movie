@@ -1,9 +1,10 @@
 package com.example.movies.data.mapper
 
-import com.example.movies.data.storage.entities.FavoriteMovieEntity
+import com.example.movies.data.storage.entities.list.FavoriteMovieEntity
 import com.example.movies.domain.model.movie.Movie
+import javax.inject.Inject
 
-class FavoriteMovieEntityMapper {
+class FavoriteMovieEntityMapper @Inject constructor() {
     fun toMovie(favoriteMovieEntity: FavoriteMovieEntity): Movie {
         return Movie(
             favoriteMovieEntity.adult,
@@ -47,7 +48,7 @@ class FavoriteMovieEntityMapper {
         return favoriteMovieEntityList.map { toMovie(it) }
     }
 
-    fun toFavoriteMovie(movie: Movie):FavoriteMovieEntity{
+    fun toFavoriteMovie(movie: Movie): FavoriteMovieEntity {
         return FavoriteMovieEntity(
             movie.adult,
             movie.backdropPath,

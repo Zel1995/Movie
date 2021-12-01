@@ -10,7 +10,7 @@ data class ActorDetailsResponse(
     @SerializedName("biography")
     val biography: String,
     @SerializedName("birthday")
-    val birthday: String,
+    val birthday: String?,
     @SerializedName("deathday")
     val deathDay: String?,
     @SerializedName("gender")

@@ -4,7 +4,7 @@ data class ActorDetails(
     val adult:Boolean,
     val alsoKnownAs:List<String>,
     val biography:String,
-    val birthday:String,
+    val birthday:String?,
     val deathDay:String?,
     val gender:Int,
     val homepage:String?,

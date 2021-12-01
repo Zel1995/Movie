@@ -1,6 +1,8 @@
 package com.example.movies.ui.main.details
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,13 +14,16 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.databinding.FragmentMovieBinding
+import com.example.movies.domain.model.movie.Movie
+import com.example.movies.domain.model.movie.MovieDetails
 import com.example.movies.domain.repository.FavoriteMovieRepository
 import com.example.movies.domain.repository.MovieRepository
-import com.example.movies.domain.model.movie.Movie
 import com.example.movies.domain.usecase.AddOrDeleteFavoriteMovieUseCase
 import com.example.movies.ui.main.MainActivity
+import com.example.movies.ui.main.UrlDataPath
 import com.example.movies.ui.main.categories.MoviesAdapter.Companion.BASE_IMAGE_URL
 import com.example.movies.ui.main.viewBinding
+import com.google.android.material.chip.Chip
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -35,8 +40,11 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
         }
     }
 
+    private val adapter = ProductionCompaniesAdapter()
+
     @Inject
     lateinit var factory: MovieViewModelFactory
+    var movie: Movie? = null
 
     private val viewModel: MovieViewModel by viewModels {
         factory
@@ -46,11 +54,30 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
-        val movie = arguments?.let { it.getParcelable(MOVIE_ARG) as Movie? }
+        movie = arguments?.getParcelable(MOVIE_ARG)
         movie?.id?.let {
             viewModel.fetchMovie(it)
         }
+        viewBinding.toolbar.setNavigationOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
         setHasOptionsMenu(true)
+        initRecyclerView()
+        initFab()
+        initMenu()
+    }
+
+    private fun initRecyclerView() {
+        viewBinding.productionCompaniesRecyclerView.adapter = adapter
+    }
+
+    private fun initFab() {
+        viewBinding.fab.setOnClickListener {
+            movie?.let { movie -> viewModel.fetchVideo(movie.id) }
+        }
+    }
+
+    private fun initMenu() {
         viewBinding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.item_like -> {
@@ -72,16 +99,13 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.loading.collect {
-                viewBinding.progress.visibility = if (it) View.VISIBLE else View.GONE
-                viewBinding.movieLayout.visibility = if (it) View.GONE else View.VISIBLE
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.movie.collect {
-                Glide.with(viewBinding.moviePoserImageView)
-                    .load(BASE_IMAGE_URL + it?.backdropPath)
-                    .into(viewBinding.moviePoserImageView)
-                viewBinding.moviePoserImageView.setOnClickListener {
+                it?.let {
+                    initViews(it)
+                    adapter.setData(it.productionCompanies.filter { companies -> !companies.logoPath.isNullOrEmpty() })
                 }
             }
         }
@@ -89,6 +113,46 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
             viewModel.favoriteIcon.collect {
                 viewBinding.toolbar.menu.findItem(R.id.item_like).setIcon(it)
             }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.video.collect {
+                it?.let { videos ->
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(UrlDataPath.getYoutubeVideoPath(videos.results[0].key))
+                    ).apply {
+                        startActivity(this)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initViews(it: MovieDetails) {
+        Glide.with(viewBinding.movieBackImageView)
+            .load(BASE_IMAGE_URL + it.backdropPath)
+            .into(viewBinding.movieBackImageView)
+
+        Glide.with(viewBinding.moviePosterImageView)
+            .load(BASE_IMAGE_URL + it.posterPath)
+            .into(viewBinding.moviePosterImageView)
+
+        viewBinding.titleTextView.text = it.title
+        viewBinding.tagLineTextView.text = it.tagline
+
+        viewBinding.runtimeTextView.text = "длительность:  ${it.runTime} min."
+        viewBinding.budgetTextView.text = "бюджет: " + it.budget
+        viewBinding.revenueTextView.text = "доход: " + it.revenue
+        viewBinding.statusTextView.text = "статус: " + it.status
+        viewBinding.ratingTextView.text = it.voteAverage.toString()
+        viewBinding.releaseDateTextView.text = "Дата выхода: ${it.releaseDate}"
+        viewBinding.ratingBar.rating = it.voteAverage / 2
+        viewBinding.overviewTextView.text = it.overview
+
+        it.genres.forEach { genre ->
+            val chip = Chip(requireContext())
+            chip.setText(genre)
+            viewBinding.genresChipGroup.addView(chip)
         }
     }
 

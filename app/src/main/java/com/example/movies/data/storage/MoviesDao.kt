@@ -4,9 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.movies.data.storage.entities.MovieCategoryEntity
-import com.example.movies.data.storage.entities.MovieCategoryWithMovies
-import com.example.movies.data.storage.entities.MovieEntity
+import com.example.movies.data.storage.entities.list.MovieCategoryEntity
+import com.example.movies.data.storage.entities.list.MovieCategoryWithMovies
+import com.example.movies.data.storage.entities.list.MovieEntity
 
 @Dao
 interface MoviesDao {
@@ -27,5 +27,5 @@ interface MoviesDao {
     suspend fun addMovies(movie: List<MovieEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addCategory(movieCategoryEntity:MovieCategoryEntity)
+    suspend fun addCategory(movieCategoryEntity: MovieCategoryEntity)
 }

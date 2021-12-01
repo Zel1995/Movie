@@ -1,11 +1,11 @@
-package com.example.movies.data.storage.entities
+package com.example.movies.data.storage.entities.list
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class MovieEntity(
+data class FavoriteMovieEntity(
     @ColumnInfo(name = "adult")
     val adult: Boolean,
     @ColumnInfo(name = "backdrop_path")

@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.movies.data.storage.entities.FavoriteMovieEntity
+import com.example.movies.data.storage.entities.list.FavoriteMovieEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,5 +19,5 @@ interface FavoriteMoviesDao {
     suspend fun deleteById(id: Int)
 
     @Query("SELECT * FROM FavoriteMovieEntity WHERE id = :id")
-    suspend fun selectById(id:Int):FavoriteMovieEntity?
+    suspend fun selectById(id:Int): FavoriteMovieEntity?
 }

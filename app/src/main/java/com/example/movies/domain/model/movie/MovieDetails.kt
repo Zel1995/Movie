@@ -12,7 +12,7 @@ data class MovieDetails(
     val overview: String?,
     val popularity: String,
     val posterPath: String?,
-    val productionCompanies: List<String>,
+    val productionCompanies: List<ProductionCompanies>,
     val releaseDate: String,
     val revenue: Long,
     val runTime: Int?,

@@ -7,6 +7,7 @@ import com.example.movies.data.repository.Success
 import com.example.movies.domain.model.movie.Movie
 import com.example.movies.domain.model.movie.MovieCategory
 import com.example.movies.domain.model.movie.MovieDetails
+import com.example.movies.domain.model.video.Videos
 import com.example.movies.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -45,6 +46,10 @@ class MovieMockRepositoryImpl : MovieRepository {
         }
 
     override fun getMovie(id: Int): Flow<RepositoryResult<MovieDetails>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getVideo(id: Int): Flow<RepositoryResult<Videos>> {
         TODO("Not yet implemented")
     }
 

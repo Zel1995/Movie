@@ -14,7 +14,7 @@ class AddOrDeleteFavoriteMovieUseCase @Inject constructor(
             R.drawable.ic_like
         }else{
             favoriteRepository.addFavoriteMovie(movie)
-            R.drawable.ic_liked
+            R.drawable.ic_heart
         }
     }
 }

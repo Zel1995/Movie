@@ -19,23 +19,36 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Singleton
     @Provides
-    fun providesRepository(movieApi: MovieApi, moviesDao: MoviesDao): MovieRepository =
+    fun providesRepository(
+        movieApi: MovieApi,
+        moviesDao: MoviesDao,
+        movieApiResponseMapper: MovieApiResponseMapper,
+        movieEntityMapper: MovieEntityMapper,
+        videosResponseMapper: VideosResponseMapper
+    ): MovieRepository =
         MovieRepositoryImpl(
             movieApi,
             moviesDao,
-            MovieApiResponseMapper(),
-            MovieEntityMapper()
+            movieApiResponseMapper,
+            movieEntityMapper,
+            videosResponseMapper
         )
 
     @Provides
     @Singleton
-    fun providesFavoriteMovieRepository(favoriteMoviesDao: FavoriteMoviesDao): FavoriteMovieRepository {
-        return FavoriteMovieRepositoryImpl(favoriteMoviesDao, FavoriteMovieEntityMapper())
+    fun providesFavoriteMovieRepository(
+        favoriteMoviesDao: FavoriteMoviesDao,
+        favoriteMovieEntityMapper: FavoriteMovieEntityMapper
+    ): FavoriteMovieRepository {
+        return FavoriteMovieRepositoryImpl(favoriteMoviesDao, favoriteMovieEntityMapper)
     }
 
     @Provides
     @Singleton
-    fun providesActorsRepository(actorsApi: ActorsApi): ActorsRepository =
-        ActorsRepositoryImpl(actorsApi, ActorsResponseMapper())
+    fun providesActorsRepository(
+        actorsApi: ActorsApi,
+        actorsResponseMapper: ActorsResponseMapper
+    ): ActorsRepository =
+        ActorsRepositoryImpl(actorsApi, actorsResponseMapper)
 
 }

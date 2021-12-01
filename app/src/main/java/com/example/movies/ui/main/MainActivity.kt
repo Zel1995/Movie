@@ -1,8 +1,10 @@
 package com.example.movies.ui.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movies.R
+import com.example.movies.databinding.MainActivityBinding
 import com.example.movies.di.App
 import com.example.movies.di.MainSubcomponent
 import com.example.movies.di.modules.MainActivityModule
@@ -13,12 +15,13 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     var mainSubcomponent: MainSubcomponent? = null
-
+    lateinit var viewBinding:MainActivityBinding
     @Inject
     lateinit var router: MainRouter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        viewBinding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
         mainSubcomponent =
             (application as App).appComponent.mainSubcomponent().create(MainActivityModule(this))
         mainSubcomponent?.inject(this)
@@ -34,6 +37,10 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+    fun setBadgeNumber(count:Int){
+        viewBinding.bottomNavView.getOrCreateBadge(R.id.item_favorite).number = count
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

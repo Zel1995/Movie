@@ -1,12 +1,13 @@
 package com.example.movies.data.mapper
 
-import com.example.movies.data.storage.entities.MovieCategoryEntity
-import com.example.movies.data.storage.entities.MovieCategoryWithMovies
-import com.example.movies.data.storage.entities.MovieEntity
+import com.example.movies.data.storage.entities.list.MovieCategoryEntity
+import com.example.movies.data.storage.entities.list.MovieCategoryWithMovies
+import com.example.movies.data.storage.entities.list.MovieEntity
 import com.example.movies.domain.model.movie.Movie
 import com.example.movies.domain.model.movie.MovieCategory
+import javax.inject.Inject
 
-class MovieEntityMapper {
+class MovieEntityMapper @Inject constructor(){
 
     private fun toMovie(movieEntity: MovieEntity): Movie {
         return Movie(

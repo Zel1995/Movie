@@ -6,7 +6,7 @@ data class ProductionCompaniesResponse(
     @SerializedName("id")
     val id: String,
     @SerializedName("logo_path")
-    val logoPath: Boolean,
+    val logoPath: String?,
     @SerializedName("name")
     val name: String,
     @SerializedName("origin_country")

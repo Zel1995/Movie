@@ -6,8 +6,9 @@ import com.example.movies.data.model.actors.ActorsResponse
 import com.example.movies.domain.model.actor.Actor
 import com.example.movies.domain.model.actor.ActorDetails
 import com.example.movies.domain.model.actor.Actors
+import javax.inject.Inject
 
-class ActorsResponseMapper {
+class ActorsResponseMapper @Inject constructor(){
     private fun toActor(actorResponse: ActorResponse): Actor {
         return Actor(
             actorResponse.adult,
