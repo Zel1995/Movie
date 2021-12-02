@@ -5,19 +5,20 @@ import com.example.movies.di.modules.RouterModule
 import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.actor.ActorFragment
 import com.example.movies.ui.main.actors.ActorsFragment
+import com.example.movies.ui.main.categories.MoviesListFragment
 import com.example.movies.ui.main.details.MovieFragment
 import com.example.movies.ui.main.favorite.FavoriteFragment
-import com.example.movies.ui.main.categories.MoviesListFragment
 import com.example.movies.ui.main.search.SearchMoviesFragment
 import dagger.Subcomponent
 
-@Subcomponent(modules = [RouterModule::class,MainActivityModule::class])
+@Subcomponent(modules = [RouterModule::class, MainActivityModule::class])
 interface MainSubcomponent {
 
     @Subcomponent.Factory
-    interface Factory{
-        fun create(mainActivityModule: MainActivityModule):MainSubcomponent
+    interface Factory {
+        fun create(mainActivityModule: MainActivityModule): MainSubcomponent
     }
+
     fun inject(main: MainActivity)
     fun inject(moviesListFragment: MoviesListFragment)
     fun inject(movieFragment: MovieFragment)

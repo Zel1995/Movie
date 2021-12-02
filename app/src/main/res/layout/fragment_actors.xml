@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="#00000000"
+        android:elevation="@dimen/page_scroller_elevation"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/previous_page_imageView"
+            style="@style/chips_page_scrollers_style"
+            android:clickable="true"
+            android:focusable="true"
+            app:chipIcon="@drawable/ic_before"
+            app:chipIconEnabled="true" />
+
+        <TextView
+            android:id="@+id/page_num_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/first_page"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/next_page_imageView"
+            style="@style/chips_page_scrollers_style"
+            android:focusable="true"
+            app:chipIcon="@drawable/ic_next"
+            app:chipIconEnabled="true" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actors_recycler_view"
@@ -12,5 +47,11 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2" />
 
+    <ProgressBar
+        android:id="@+id/actors_progress"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-</LinearLayout>
+</FrameLayout>

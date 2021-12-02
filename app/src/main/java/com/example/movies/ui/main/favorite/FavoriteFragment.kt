@@ -3,6 +3,7 @@ package com.example.movies.ui.main.favorite
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -22,14 +23,18 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     companion object {
         fun newInstance() = FavoriteFragment()
     }
-    private val adapter = FavoriteMoviesAdapter(::onItemClick){
+
+    private val adapter = FavoriteMoviesAdapter(::onItemClick) {
         viewModel.deleteMovie(it)
     }
-    private fun onItemClick(movie:Movie){
+
+    private fun onItemClick(movie: Movie) {
         router.openMovieDetailsFragment(movie)
     }
+
     @Inject
     lateinit var router: MainRouter
+
     @Inject
     lateinit var factory: FavoriteMoviesViewModelFactory
     private val viewModel: FavoriteMoviesViewModel by viewModels {
@@ -58,18 +63,20 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.loading.collect {
-
+                viewBinding.favoriteProgress.visibility = if (it) View.VISIBLE else View.GONE
+                viewBinding.favoriteContainer.visibility = if (it) View.GONE else View.VISIBLE
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.emptyScreen.collect {
-                viewBinding.emptyFavoriteImageView.visibility = if(it) View.VISIBLE else View.GONE
-                viewBinding.addFavoriteMovieTextView.visibility = if(it) View.VISIBLE else View.GONE
+                viewBinding.emptyFavoriteImageView.visibility = if (it) View.VISIBLE else View.GONE
+                viewBinding.addFavoriteMovieTextView.visibility =
+                    if (it) View.VISIBLE else View.GONE
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.error.collect {
-
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
     }

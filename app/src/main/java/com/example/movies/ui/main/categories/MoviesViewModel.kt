@@ -36,7 +36,7 @@ class MoviesViewModel(
         viewModelScope.launch {
             fetchMoviesUseCase.run()
                 .flowOn(Dispatchers.IO)
-                .onStart{
+                .onStart {
                     _loading.value = true
                 }.collect { result ->
                     when (result) {

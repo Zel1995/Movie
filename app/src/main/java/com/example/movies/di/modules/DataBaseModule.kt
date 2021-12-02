@@ -1,7 +1,6 @@
 package com.example.movies.di.modules
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.example.movies.data.storage.FavoriteMoviesDao
 import com.example.movies.data.storage.MovieDataBase

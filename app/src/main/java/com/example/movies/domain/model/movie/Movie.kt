@@ -1,8 +1,6 @@
 package com.example.movies.domain.model.movie
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -20,5 +18,5 @@ data class Movie(
     val video: Boolean,
     val voteAverage: Float,
     val voteCount: Int,
-    val categoryName:String = ""
+    val categoryName: String = ""
 ) : Parcelable

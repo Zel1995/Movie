@@ -4,14 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.domain.model.actor.Actor
-import com.example.movies.ui.main.categories.MoviesAdapter
+import com.example.movies.ui.main.UrlDataPath
 
-class ActorsAdapter (private val itemClicked:(actor: Actor)->Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ActorsAdapter(private val itemClicked: (actor: Actor) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val data = mutableListOf<Actor>()
 
@@ -39,19 +41,23 @@ class ActorsAdapter (private val itemClicked:(actor: Actor)->Unit): RecyclerView
     inner class ActorsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val image = itemView.findViewById<ImageView>(R.id.actor_image_view)
         private val name = itemView.findViewById<TextView>(R.id.actor_name_text_view)
+        private val rating = itemView.findViewById<RatingBar>(R.id.actor_item_ratingBar)
 
         init {
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 itemClicked.invoke(data[adapterPosition])
             }
         }
+
         fun bind(actor: Actor) {
             Glide.with(itemView)
-                .load(MoviesAdapter.BASE_IMAGE_URL + actor.profilePath)
+                .load(actor.profilePath?.let { UrlDataPath.getPosterPath(it) })
                 .placeholder(R.drawable.avatar_background)
                 .error(R.drawable.avatar_background)
                 .into(image)
             name.text = actor.name
+            rating.rating = actor.popularity.toFloat() / 2
+
         }
     }
 }

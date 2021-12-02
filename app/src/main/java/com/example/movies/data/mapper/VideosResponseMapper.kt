@@ -23,7 +23,7 @@ class VideosResponseMapper @Inject constructor() {
     fun toVideos(videosResponse: VideosResponse): Videos {
         return Videos(
             videosResponse.id,
-            videosResponse.results.map{toVideoResult(it)}
+            videosResponse.results.map { toVideoResult(it) }
         )
     }
 }

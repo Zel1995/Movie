@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.domain.model.movie.Movie
-import com.example.movies.ui.main.categories.MoviesAdapter.Companion.BASE_IMAGE_URL
+import com.example.movies.ui.main.UrlDataPath
 
 class SearchMoviesAdapter(private val itemClicked: (Movie) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -42,6 +43,7 @@ class SearchMoviesAdapter(private val itemClicked: (Movie) -> Unit) :
         private val title = itemView.findViewById<TextView>(R.id.title_text_view)
         private val image = itemView.findViewById<ImageView>(R.id.search_movie_image_view)
         private val date = itemView.findViewById<TextView>(R.id.date_text_view)
+        private val ratingBar = itemView.findViewById<RatingBar>(R.id.search_rating_bar)
 
         init {
             itemView.setOnClickListener {
@@ -51,12 +53,13 @@ class SearchMoviesAdapter(private val itemClicked: (Movie) -> Unit) :
 
         fun bind(movie: Movie) {
             Glide.with(itemView)
-                .load(BASE_IMAGE_URL + movie.posterPath)
+                .load(movie.posterPath?.let { UrlDataPath.getPosterPath(it) })
                 .placeholder(R.drawable.movie_background3)
                 .error(R.drawable.movie_background3)
                 .into(image)
             title.text = movie.title
             date.text = movie.releaseDate
+            ratingBar.rating = movie.voteAverage / 2
         }
 
     }

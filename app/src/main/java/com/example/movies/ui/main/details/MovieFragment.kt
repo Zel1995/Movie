@@ -21,7 +21,6 @@ import com.example.movies.domain.repository.MovieRepository
 import com.example.movies.domain.usecase.AddOrDeleteFavoriteMovieUseCase
 import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.UrlDataPath
-import com.example.movies.ui.main.categories.MoviesAdapter.Companion.BASE_IMAGE_URL
 import com.example.movies.ui.main.viewBinding
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.flow.collect
@@ -99,6 +98,7 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.loading.collect {
+                //TODO loading
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -130,28 +130,33 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
 
     private fun initViews(it: MovieDetails) {
         Glide.with(viewBinding.movieBackImageView)
-            .load(BASE_IMAGE_URL + it.backdropPath)
+            .load(it.backdropPath?.let { UrlDataPath.getBackdropPath(it) })
             .into(viewBinding.movieBackImageView)
 
         Glide.with(viewBinding.moviePosterImageView)
-            .load(BASE_IMAGE_URL + it.posterPath)
+            .load(it.posterPath?.let { UrlDataPath.getPosterPath(it) })
             .into(viewBinding.moviePosterImageView)
 
         viewBinding.titleTextView.text = it.title
         viewBinding.tagLineTextView.text = it.tagline
 
-        viewBinding.runtimeTextView.text = "длительность:  ${it.runTime} min."
-        viewBinding.budgetTextView.text = "бюджет: " + it.budget
-        viewBinding.revenueTextView.text = "доход: " + it.revenue
-        viewBinding.statusTextView.text = "статус: " + it.status
+        val runtime = "${getString(R.string.longest)} ${it.runTime} ${getString(R.string.min)}"
+        viewBinding.runtimeTextView.text = runtime
+        val budget = "${getString(R.string.budget)}  ${it.budget}"
+        viewBinding.budgetTextView.text = budget
+        val revenue = "${getString(R.string.revenue)} ${it.revenue}"
+        viewBinding.revenueTextView.text = revenue
+        val status = "${getString(R.string.status)} ${it.status}"
+        viewBinding.statusTextView.text = status
         viewBinding.ratingTextView.text = it.voteAverage.toString()
-        viewBinding.releaseDateTextView.text = "Дата выхода: ${it.releaseDate}"
+        val releaseDate = "${getString(R.string.release_date)} ${it.releaseDate}"
+        viewBinding.releaseDateTextView.text = releaseDate
         viewBinding.ratingBar.rating = it.voteAverage / 2
         viewBinding.overviewTextView.text = it.overview
 
         it.genres.forEach { genre ->
             val chip = Chip(requireContext())
-            chip.setText(genre)
+            chip.text = genre
             viewBinding.genresChipGroup.addView(chip)
         }
     }

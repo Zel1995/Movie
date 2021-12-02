@@ -9,15 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.domain.model.movie.Movie
+import com.example.movies.ui.main.UrlDataPath
 
 class MoviesAdapter(
     private val movies: List<Movie>,
     private val onMovieClicked: (movie: Movie) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-        const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original"
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val root = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
@@ -39,9 +37,9 @@ class MoviesAdapter(
 
         fun bind(movie: Movie) {
             Glide.with(itemView)
-                .load(BASE_IMAGE_URL + movie.posterPath)
-                .placeholder(R.drawable.animate_movie_load)
-                .error(R.drawable.animate_movie_load)
+                .load(movie.posterPath?.let { UrlDataPath.getPosterPath(it) })
+                .placeholder(R.drawable.movie_background3)
+                .error(R.drawable.movie_background3)
                 .into(image)
             movieTitle.text = movie.title
         }

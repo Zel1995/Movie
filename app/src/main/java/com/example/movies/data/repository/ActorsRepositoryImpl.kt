@@ -18,25 +18,30 @@ class ActorsRepositoryImpl(
         const val RU_LANGUAGE_KEY = "ru"
     }
 
-    override fun getActors(): Flow<RepositoryResult<Actors>> = flow {
+    override fun getActors(page: Int): Flow<RepositoryResult<Actors>> = flow {
         try {
 
         } catch (exc: Exception) {
             emit(Error<Actors>(exc))
         }
-        val response = actorsApi.getActors(BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY,"1")
+        val response = actorsApi.getActors(BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY, page)
         val result = actorsResponseMapper.toActors(response)
         emit(Success(result))
     }
 
     override fun getActor(id: String): Flow<RepositoryResult<ActorDetails>> = flow {
         try {
-
-        }catch (exc:java.lang.Exception){
+            val result = actorsResponseMapper.toActorDetails(
+                actorsApi.getActor(
+                    id,
+                    BuildConfig.TMDB_KEY,
+                    RU_LANGUAGE_KEY
+                )
+            )
+            emit(Success(result))
+        } catch (exc: java.lang.Exception) {
             emit(Error<ActorDetails>(exc))
         }
-        val result = actorsResponseMapper.toActorDetails(actorsApi.getActor(id, BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY))
-        emit(Success(result))
     }
 
 

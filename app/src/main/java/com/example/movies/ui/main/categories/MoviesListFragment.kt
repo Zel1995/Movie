@@ -24,7 +24,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
     private val adapter = MovieCategoriesAdapter {
         mainRouter.openMovieDetailsFragment(it)
     }
-    lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     @Inject
     lateinit var factory: MainViewModelFactory
@@ -109,7 +109,7 @@ class MoviesListFragment : Fragment(R.layout.fragment_movie_list) {
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.iconMode.collect {
-                //set adult icon
+                //TODO set adult icon
             }
         }
     }

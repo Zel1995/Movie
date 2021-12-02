@@ -23,6 +23,7 @@ class FavoriteMovieEntityMapper @Inject constructor() {
             favoriteMovieEntity.categoryName
         )
     }
+
     fun toNullableMovie(favoriteMovieEntity: FavoriteMovieEntity?): Movie? {
         return favoriteMovieEntity?.let {
             Movie(

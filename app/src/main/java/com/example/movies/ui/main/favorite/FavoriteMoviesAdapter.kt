@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.domain.model.movie.Movie
-import com.example.movies.ui.main.categories.MoviesAdapter.Companion.BASE_IMAGE_URL
+import com.example.movies.ui.main.UrlDataPath
 
 class FavoriteMoviesAdapter(
     private val onItemClick: (movie: Movie) -> Unit,
@@ -56,7 +56,7 @@ class FavoriteMoviesAdapter(
 
         fun bind(movie: Movie) {
             Glide.with(itemView)
-                .load(BASE_IMAGE_URL + movie.posterPath)
+                .load(movie.posterPath?.let { UrlDataPath.getPosterPath(it) })
                 .into(image)
             title.text = movie.title
             content.text = movie.overview

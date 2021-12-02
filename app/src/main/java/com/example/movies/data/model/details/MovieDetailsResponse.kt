@@ -26,7 +26,7 @@ data class MovieDetailsResponse(
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompaniesResponse> ,
+    val productionCompanies: List<ProductionCompaniesResponse>,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("revenue")

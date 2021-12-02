@@ -26,9 +26,9 @@ data class ActorDetailsResponse(
     @SerializedName("name")
     val name: String,
     @SerializedName("place_of_birth")
-    val placeOfBirth: String,
+    val placeOfBirth: String?,
     @SerializedName("popularity")
     val popularity: Float,
     @SerializedName("profile_path")
-    val profilePath: String
+    val profilePath: String?
 )

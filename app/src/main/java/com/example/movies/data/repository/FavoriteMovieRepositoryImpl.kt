@@ -2,8 +2,8 @@ package com.example.movies.data.repository
 
 import com.example.movies.data.mapper.FavoriteMovieEntityMapper
 import com.example.movies.data.storage.FavoriteMoviesDao
-import com.example.movies.domain.repository.FavoriteMovieRepository
 import com.example.movies.domain.model.movie.Movie
+import com.example.movies.domain.repository.FavoriteMovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map

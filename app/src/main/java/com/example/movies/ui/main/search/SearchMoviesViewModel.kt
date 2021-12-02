@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class SearchMoviesViewModel(private val repository: MovieRepository) : ViewModel() {
-
     private val _searchMovies = MutableStateFlow<MovieCategory?>(null)
     private val _error = MutableSharedFlow<String>()
     private val _loading = MutableStateFlow(false)

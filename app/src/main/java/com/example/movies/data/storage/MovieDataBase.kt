@@ -2,9 +2,9 @@ package com.example.movies.data.storage
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.movies.data.storage.entities.details.MovieDetailsEntity
 import com.example.movies.data.storage.entities.list.FavoriteMovieEntity
 import com.example.movies.data.storage.entities.list.MovieCategoryEntity
-import com.example.movies.data.storage.entities.details.MovieDetailsEntity
 import com.example.movies.data.storage.entities.list.MovieEntity
 
 @Database(

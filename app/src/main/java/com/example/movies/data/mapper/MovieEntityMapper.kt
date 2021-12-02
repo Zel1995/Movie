@@ -7,7 +7,7 @@ import com.example.movies.domain.model.movie.Movie
 import com.example.movies.domain.model.movie.MovieCategory
 import javax.inject.Inject
 
-class MovieEntityMapper @Inject constructor(){
+class MovieEntityMapper @Inject constructor() {
 
     private fun toMovie(movieEntity: MovieEntity): Movie {
         return Movie(

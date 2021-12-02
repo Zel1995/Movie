@@ -67,11 +67,11 @@ class MovieRepositoryImpl(
         }
     }
 
-    override fun getVideo(id: Int): Flow<RepositoryResult<Videos>> = flow{
+    override fun getVideo(id: Int): Flow<RepositoryResult<Videos>> = flow {
         try {
-            val response = movieApi.getVideo(id,BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY)
+            val response = movieApi.getVideo(id, BuildConfig.TMDB_KEY, RU_LANGUAGE_KEY)
             emit(Success(videosResponseMapper.toVideos(response)))
-        }catch (exc:Exception){
+        } catch (exc: Exception) {
             emit(Error<Videos>(exc))
         }
     }

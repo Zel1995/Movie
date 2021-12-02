@@ -34,5 +34,5 @@ data class MovieEntity(
     @ColumnInfo(name = "vote_count")
     val voteCount: Int,
     @ColumnInfo(name = "category_name")
-    val categoryName:String
+    val categoryName: String
 )

@@ -3,6 +3,7 @@ package com.example.movies.ui.main.actors
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -35,6 +36,16 @@ class ActorsFragment : Fragment(R.layout.fragment_actors) {
         viewBinding.actorsRecyclerView.adapter = adapter
         viewModel.fetchActors()
         initViewModel()
+        initNextPageListeners()
+    }
+
+    private fun initNextPageListeners() {
+        viewBinding.nextPageImageView.setOnClickListener {
+            viewModel.nextPage()
+        }
+        viewBinding.previousPageImageView.setOnClickListener {
+            viewModel.previousPage()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -50,10 +61,18 @@ class ActorsFragment : Fragment(R.layout.fragment_actors) {
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.error.collect {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.loading.collect {
+                viewBinding.actorsProgress.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.page.collect {
+                viewModel.fetchActors(it)
+                viewBinding.pageNumTextView.text = it.toString()
             }
         }
     }

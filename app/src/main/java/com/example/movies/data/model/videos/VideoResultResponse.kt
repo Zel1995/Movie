@@ -2,7 +2,7 @@ package com.example.movies.data.model.videos
 
 import com.google.gson.annotations.SerializedName
 
-data class VideoResultResponse (
+data class VideoResultResponse(
     @SerializedName("name")
     val name: String,
     @SerializedName("key")
@@ -19,4 +19,4 @@ data class VideoResultResponse (
     val publishedAt: String?,
     @SerializedName("id")
     val id: String
-        )
+)

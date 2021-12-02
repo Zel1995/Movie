@@ -12,4 +12,4 @@ data class Actor(
     val name: String,
     val popularity: Double,
     val profilePath: String?,
-):Parcelable
+) : Parcelable

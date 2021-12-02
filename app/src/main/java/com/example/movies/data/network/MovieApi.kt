@@ -32,7 +32,8 @@ interface MovieApi {
 
     @GET("3/movie/{id}/videos")
     suspend fun getVideo(
-        @Path("id")id:Int,
-        @Query("api_key")key:String,
-        @Query("language")language: String):VideosResponse
+        @Path("id") id: Int,
+        @Query("api_key") key: String,
+        @Query("language") language: String
+    ): VideosResponse
 }

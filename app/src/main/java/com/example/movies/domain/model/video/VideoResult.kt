@@ -1,6 +1,6 @@
 package com.example.movies.domain.model.video
 
-data class VideoResult (
+data class VideoResult(
     val name: String,
     val key: String,
     val site: String,
@@ -9,4 +9,4 @@ data class VideoResult (
     val official: Boolean,
     val publishedAt: String?,
     val id: String
-        )
+)

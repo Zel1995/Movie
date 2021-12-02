@@ -3,28 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_favorite"
+    <FrameLayout
+        android:id="@+id/favorite_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/add_favorite_movie_text_view"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <TextView
+            android:id="@+id/add_favorite_movie_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:alpha="0.5"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/empty_favorite_text_bottom_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:text="@string/add_your_favorite_movie"/>
+
+        <ImageView
+            android:id="@+id/empty_favorite_image_view"
+            android:layout_width="@dimen/empty_favorite_img_layout_width"
+            android:layout_height="@dimen/empty_favorite_img_layout_height"
+            android:layout_gravity="center"
+            android:alpha="0.5"
+            android:src="@drawable/bg_movie"/>
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/favorite_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:alpha="0.5"
-        android:textStyle="bold"
-        android:layout_marginBottom="25dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        android:text="@string/add_your_favorite_movie"/>
-
-    <ImageView
-        android:id="@+id/empty_favorite_image_view"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
         android:layout_gravity="center"
-        android:alpha="0.5"
-        android:src="@drawable/bg_movie"/>
+        android:visibility="gone"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

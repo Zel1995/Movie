@@ -15,15 +15,20 @@ import com.example.movies.domain.repository.MovieRepository
 import com.example.movies.ui.main.MainActivity
 import com.example.movies.ui.main.router.MainRouter
 import com.example.movies.ui.main.viewBinding
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
 import javax.inject.Inject
 
 class SearchMoviesFragment : Fragment(R.layout.fragment_movie_search) {
-    private val adapter = SearchMoviesAdapter{
+    private val adapter = SearchMoviesAdapter {
         router.openMovieDetailsFragment(it)
     }
+
     @Inject
-    lateinit var router:MainRouter
+    lateinit var router: MainRouter
+
     @Inject
     lateinit var factory: SearchMoviesViewModelFactory
     private val viewBinding: FragmentMovieSearchBinding by viewBinding(FragmentMovieSearchBinding::bind)
@@ -31,17 +36,24 @@ class SearchMoviesFragment : Fragment(R.layout.fragment_movie_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchSearchResult("a")
+        viewModel.fetchSearchResult(getString(R.string.first_search))
         initViewModel()
         initSearchEdit()
         viewBinding.searchAdapter.adapter = adapter
     }
 
     private fun initSearchEdit() {
-        viewBinding.queryEditText.addTextChangedListener{
-            viewModel.fetchSearchResult(it.toString())
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            callbackFlow<String> {
+                val textWatcher = viewBinding.queryEditText.addTextChangedListener {
+                    it?.let { trySend(it.toString()) }
+                }
+                awaitClose { viewBinding.queryEditText.removeTextChangedListener(textWatcher) }
+            }.debounce(500)
+                .collect {
+                    viewModel.fetchSearchResult(it)
+                }
         }
-
     }
 
     private fun initViewModel() {

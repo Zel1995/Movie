@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FavoriteMoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addFavoriteMovie(favoriteMovie: FavoriteMovieEntity):Long
+    suspend fun addFavoriteMovie(favoriteMovie: FavoriteMovieEntity): Long
 
     @Query("SELECT * FROM FavoriteMovieEntity")
     fun getAll(): Flow<List<FavoriteMovieEntity>>
@@ -19,5 +19,5 @@ interface FavoriteMoviesDao {
     suspend fun deleteById(id: Int)
 
     @Query("SELECT * FROM FavoriteMovieEntity WHERE id = :id")
-    suspend fun selectById(id:Int): FavoriteMovieEntity?
+    suspend fun selectById(id: Int): FavoriteMovieEntity?
 }

@@ -17,8 +17,9 @@ class NetworkModule {
     fun providesMovieApi(retrofit: Retrofit): MovieApi {
         return retrofit.create(MovieApi::class.java)
     }
+
     @Provides
-    fun provideActorsApi(retrofit: Retrofit):ActorsApi{
+    fun provideActorsApi(retrofit: Retrofit): ActorsApi {
         return retrofit.create(ActorsApi::class.java)
     }
 
