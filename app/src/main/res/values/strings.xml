@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Movies</string>
+    <string name="categories">Categories</string>
+    <string name="movie">Movie</string>
+    <string name="movies">Movies</string>
+    <string name="favorite">favorite</string>
+    <string name="history">history</string>
+    <string name="settings">settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_your_favorite_movie">Добавьте любимый фильм...</string>
+    <string name="actors">actors</string>
+    <string name="search">search</string>
+    <string name="search_hint">поиск</string>
+    <string name="first_search">a</string>
+    <string name="first_page">1</string>
+    <string name="also_known_as">Известен как:</string>
+    <string name="null_death_day">Дата смерти: -</string>
+    <string name="date_of_birth">Дата рождения: </string>
+    <string name="day_of_death">Дата смерти: </string>
+    <string name="longest">длительность: </string>
+    <string name="min">min.</string>
+    <string name="budget">бюджет: </string>
+    <string name="revenue">доход: </string>
+    <string name="status">статус: </string>
+    <string name="release_date">Дата выхода:</string>
 </resources>
