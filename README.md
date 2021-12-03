@@ -13,7 +13,7 @@ __________
 - [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) - kotlin side(at the language level) supports for asynchronous programming.
 - [Mvvm module](/mvvm) is the implementation of user interfaces on the application. 
 - [Dagger2](https://github.com/google/dagger) - constructing dependency injection framework based on compile-time. 
-- [SwipeRefreshLayout] - refresh screens
+- [SwipeRefreshLayout](/refresh) - refresh screens
 
 ### Project screen
 <img src="screenshots/sh8.png" width="300"> <img src="screenshots/sh9.png" width="300">
