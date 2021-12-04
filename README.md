@@ -11,7 +11,7 @@ __________
 - [Gson converter](https://github.com/square/retrofit/tree/master/retrofit-converters/gson) - a converter which uses Gson for serialization to and from JSON
 - [Logging Interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor) - logs HTTP request and response data.
 - [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) - kotlin side(at the language level) supports for asynchronous programming.
-- [Mvvm module](/mvvm) is the implementation of user interfaces on the application. 
+- [Mvvm](/mvvm) is the implementation of user interfaces on the application. 
 - [Dagger2](https://github.com/google/dagger) - constructing dependency injection framework based on compile-time. 
 - [SwipeRefreshLayout](/refresh) - refresh screens
 
