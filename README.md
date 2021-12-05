@@ -23,7 +23,7 @@ tmdb_key = YOUR_API_KEY
 ```
 
 ### Project screen
-<img src="screenshots/sh8.png" width="300"> <img src="screenshots/sh9.png" width="300">
-<img src="screenshots/sh1.png" width="300"> <img src="screenshots/sh4.png" width="300">
-<img src="screenshots/sh5.png" width="300"> <img src="screenshots/sh6.png" width="300">
+<img src="screenshots/sh8.png" width="320"> <img src="screenshots/sh9.png" width="320">
+<img src="screenshots/sh1.png" width="320"> <img src="screenshots/sh4.png" width="320">
+<img src="screenshots/sh5.png" width="320"> <img src="screenshots/sh6.png" width="320">
 
