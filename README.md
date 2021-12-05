@@ -15,6 +15,13 @@ __________
 - [Dagger2](https://github.com/google/dagger) - constructing dependency injection framework based on compile-time. 
 - [SwipeRefreshLayout](/refresh) - refresh screens
 
+### How to build on your environment
+______________
+Create 'tmdb.properties' and add your [The Movie DB](https://www.themoviedb.org)'s API key in this file.
+```xml
+tmdb_key = YOUR_API_KEY
+```
+
 ### Project screen
 <img src="screenshots/sh8.png" width="300"> <img src="screenshots/sh9.png" width="300">
 <img src="screenshots/sh1.png" width="300"> <img src="screenshots/sh4.png" width="300">
